@@ -16,7 +16,7 @@ export default function Home() {
           <div className="container mx-auto text-center">
             <h2 className="text-3xl font-bold mb-4">Why Choose ADDA-CRS?</h2>
             <p className="text-lg mb-6">
-              We offer a wide range of vehicles to suit your needs, whether you're traveling for business or leisure. Our user-friendly platform makes booking a car quick and easy.
+              We offer a wide range of vehicles to suit your needs, whether you&#39;re traveling for business or leisure. Our user-friendly platform makes booking a car quick and easy.
             </p>
             <div className="flex flex-col md:flex-row justify-center md:space-x-8 gap-4 md:gap-2">
               <div>
@@ -29,7 +29,7 @@ export default function Home() {
               </div>
               <div>
                 <h3 className="text-xl font-bold mb-2">24/7 Support</h3>
-                <p>We're here to help you at any time, day or night.</p>
+                <p>We&#39;re here to help you at any time, day or night.</p>
               </div>
             </div>
           </div>
