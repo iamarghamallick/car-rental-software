@@ -4,21 +4,38 @@ import React, { useState } from 'react';
 const SignupForm = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [userType, setUserType] = useState('customer'); // Default to customer
+    const [userType, setUserType] = useState('customer');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle sign-up logic here, such as validating passwords and submitting the form data
         if (password !== confirmPassword) {
             alert("Passwords do not match");
             return;
         }
-        console.log('Name:', name);
-        console.log('Email:', email);
-        console.log('Sign up as:', userType);
-        console.log('Password:', password);
+
+        try {
+            const res = await fetch('/api/sign-up', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: name,
+                    email: email,
+                    password: password,
+                    userType: userType
+                }),
+            });
+            if (res.ok) {
+                console.log("Sign-up successful!");
+            } else {
+                console.log("Some Error Occured!");
+            }
+        } catch (error) {
+            console.log("Error:", error);
+        }
     };
 
     return (
