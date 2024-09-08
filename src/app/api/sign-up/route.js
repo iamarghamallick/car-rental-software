@@ -11,8 +11,8 @@ export async function POST(req, res) {
         const user = await req.json();
         console.log(user);
 
-        const database = client.db("customer_data_db");
-        const collection = database.collection("customer_data_collection");
+        const database = client.db("data_db");
+        const collection = database.collection("data_collection");
 
         const userExists = await collection.findOne({ email: user.email });
         if (userExists) {

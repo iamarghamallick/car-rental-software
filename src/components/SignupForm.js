@@ -29,7 +29,8 @@ const SignupForm = () => {
                 }),
             });
             if (res.ok) {
-                console.log("Sign-up successful!");
+                const data = await res.json();
+                console.log(data);
             } else {
                 console.log("Some Error Occured!");
             }

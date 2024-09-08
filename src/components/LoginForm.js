@@ -4,14 +4,35 @@ import React, { useState } from 'react';
 const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [userType, setUserType] = useState('customer'); // Default to customer
+    const [userType, setUserType] = useState('customer');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle login logic here, e.g., call an API to authenticate the user based on userType
         console.log('Email:', email);
         console.log('Password:', password);
         console.log('Login as:', userType);
+
+        try {
+            const res = await fetch('/api/log-in', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password,
+                    userType: userType
+                }),
+            });
+            const data = await res.json();
+            if (res.ok) {
+                console.log(data);
+            } else {
+                console.log("Some Error Occured!", data);
+            }
+        } catch (error) {
+            console.log("Error:", error);
+        }
     };
 
     return (
