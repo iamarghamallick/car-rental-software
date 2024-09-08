@@ -30,5 +30,7 @@ export async function POST(req, res) {
         return NextResponse.json({
             error: 'Server error!'
         }, { status: 500 });
+    } finally {
+        await client.close();
     }
 }

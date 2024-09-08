@@ -41,7 +41,7 @@ const SignupForm = () => {
 
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100">
-            <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-md w-full max-w-sm">
+            <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-md w-full max-w-sm my-4">
                 <h2 className="text-2xl font-bold mb-6 text-center">Sign Up for ADDA-CRS</h2>
 
                 <div className="mb-4">

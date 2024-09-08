@@ -18,7 +18,7 @@ export default function Home() {
             <p className="text-lg mb-6">
               We offer a wide range of vehicles to suit your needs, whether you're traveling for business or leisure. Our user-friendly platform makes booking a car quick and easy.
             </p>
-            <div className="flex justify-center space-x-8">
+            <div className="flex flex-col md:flex-row justify-center md:space-x-8 gap-4 md:gap-2">
               <div>
                 <h3 className="text-xl font-bold mb-2">Wide Selection</h3>
                 <p>Choose from a variety of cars, from economy to luxury.</p>

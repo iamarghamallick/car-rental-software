@@ -27,6 +27,7 @@ const LoginForm = () => {
             const data = await res.json();
             if (res.ok) {
                 console.log(data);
+                localStorage.setItem('token', data.token);
             } else {
                 console.log("Some Error Occured!", data);
             }
@@ -37,7 +38,7 @@ const LoginForm = () => {
 
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100">
-            <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-md w-full max-w-sm">
+            <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-md w-full max-w-sm my-4">
                 <h2 className="text-2xl font-bold mb-6 text-center">Login to ADDA-CRS</h2>
 
                 <div className="mb-4">
