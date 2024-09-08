@@ -7,6 +7,7 @@ const SignupForm = () => {
     const [userType, setUserType] = useState('customer');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [status, setStatus] = useState("Sign Up for ADDA-CRS");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -28,11 +29,13 @@ const SignupForm = () => {
                     userType: userType
                 }),
             });
+            const data = await res.json();
             if (res.ok) {
-                const data = await res.json();
+                setStatus(data.message);
                 console.log(data);
             } else {
                 console.log("Some Error Occured!");
+                setStatus(data.message);
             }
         } catch (error) {
             console.log("Error:", error);
@@ -42,7 +45,7 @@ const SignupForm = () => {
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100">
             <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-md w-full max-w-sm my-4">
-                <h2 className="text-2xl font-bold mb-6 text-center">Sign Up for ADDA-CRS</h2>
+                <h2 className="text-2xl font-bold mb-6 text-center">{status}</h2>
 
                 <div className="mb-4">
                     <label htmlFor="name" className="block text-gray-700 mb-2">Name</label>

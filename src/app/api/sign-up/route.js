@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { MongoClient } from 'mongodb';
 
-const MONGO_URI = 'mongodb+srv://argha:argha@clustercrs.aeb0l.mongodb.net/?retryWrites=true&w=majority&appName=ClusterCRS';
+const MONGO_URI = process.env.MONGO_URI;
 
 export async function POST(req, res) {
     const client = new MongoClient(MONGO_URI);

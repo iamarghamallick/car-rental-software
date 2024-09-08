@@ -1,10 +1,14 @@
 "use client";
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
 const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [userType, setUserType] = useState('customer');
+    const [status, setStatus] = useState("Login to ADDA-CRS");
+
+    const router = useRouter();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -28,8 +32,13 @@ const LoginForm = () => {
             if (res.ok) {
                 console.log(data);
                 localStorage.setItem('token', data.token);
+                setStatus(data.message);
+                setTimeout(() => {
+                    router.push(`/${userType}-dashboard`, { scroll: false });
+                }, 2000);
             } else {
                 console.log("Some Error Occured!", data);
+                setStatus(data.message);
             }
         } catch (error) {
             console.log("Error:", error);
@@ -39,7 +48,7 @@ const LoginForm = () => {
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100">
             <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-md w-full max-w-sm my-4">
-                <h2 className="text-2xl font-bold mb-6 text-center">Login to ADDA-CRS</h2>
+                <h2 className="text-2xl font-bold mb-6 text-center">{status}</h2>
 
                 <div className="mb-4">
                     <label htmlFor="email" className="block text-gray-700 mb-2">Email</label>
