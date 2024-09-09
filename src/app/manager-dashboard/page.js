@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation';
 import { verifyToken } from '@/utils/auth';
 
-const page = () => {
+const Page = () => {
     const route = useRouter();
     const [validUser, setValidUser] = useState(false);
     const [userId, setUserId] = useState(null);
@@ -30,4 +30,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page
