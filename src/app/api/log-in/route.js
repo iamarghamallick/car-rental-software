@@ -38,7 +38,7 @@ export async function POST(req, res) {
                 });
 
                 return NextResponse.json({
-                    message: 'User found. Logged in successfully!',
+                    message: 'Logged in successfully!',
                     token: jwt_token,
                 }, { status: 200 });
             } else {

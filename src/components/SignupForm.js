@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from 'react';
+import { BeatLoader } from 'react-spinners';
 
 const SignupForm = () => {
     const [name, setName] = useState('');
@@ -7,7 +8,8 @@ const SignupForm = () => {
     const [userType, setUserType] = useState('customer');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [status, setStatus] = useState("Sign Up for ADDA-CRS");
+    const [status, setStatus] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -15,6 +17,8 @@ const SignupForm = () => {
             alert("Passwords do not match");
             return;
         }
+
+        setLoading(true);
 
         try {
             const res = await fetch('/api/sign-up', {
@@ -35,17 +39,20 @@ const SignupForm = () => {
                 console.log(data);
             } else {
                 console.log("Some Error Occured!");
-                setStatus(data.message);
+                setStatus("Something went wrong!");
             }
         } catch (error) {
             console.log("Error:", error);
+            setStatus("Something went wrong!");
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100">
             <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-md w-full max-w-sm my-4">
-                <h2 className="text-2xl font-bold mb-6 text-center">{status}</h2>
+                <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
 
                 <div className="mb-4">
                     <label htmlFor="name" className="block text-gray-700 mb-2">Name</label>
@@ -109,9 +116,11 @@ const SignupForm = () => {
                     />
                 </div>
 
-                <button type="submit" className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">
-                    Sign Up
+                <button type="submit" className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 flex items-center justify-center">
+                    {loading ? <BeatLoader color='white' /> : "Sign Up"}
                 </button>
+
+                <p className="my-6 text-center">{status}</p>
             </form>
         </div>
     );

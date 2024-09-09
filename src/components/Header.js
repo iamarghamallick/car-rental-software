@@ -1,13 +1,34 @@
 "use client";
+import { verifyToken } from '@/utils/auth';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false);
+
+    const route = useRouter();
+    const pathname = usePathname();
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        const { valid, decodedToken, error } = verifyToken(token, "");
+        if (valid) {
+            setLoggedIn(true);
+        }
+    }, [pathname])
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        route.push('/login');
+        toggleMenu();
+        setLoggedIn(false);
+    }
 
     return (
         <header className="bg-gray-800 text-white py-4 sticky top-0 z-50">
@@ -19,8 +40,9 @@ const Header = () => {
                     <Link href="/" className="hover:text-gray-400">Home</Link>
                     <Link href="/#about" className="hover:text-gray-400">About</Link>
                     <Link href="/#services" className="hover:text-gray-400">Services</Link>
-                    <Link href="/login" className="hover:text-gray-400">Login</Link>
-                    <Link href="/signup" className="hover:text-gray-400">Signup</Link>
+                    {!loggedIn && <Link href="/login" className="hover:text-gray-400">Login</Link>}
+                    {!loggedIn && <Link href="/signup" className="hover:text-gray-400">Signup</Link>}
+                    {loggedIn && <button onClick={handleLogout} className="hover:text-gray-400">Logout</button>}
                 </nav>
                 <div className="md:hidden">
                     <button onClick={toggleMenu} className="focus:outline-none">
@@ -42,12 +64,15 @@ const Header = () => {
                         <li>
                             <Link href="/#services" className="hover:text-gray-400" onClick={toggleMenu}>Services</Link>
                         </li>
-                        <li>
+                        {!loggedIn && <li>
                             <Link href="/login" className="hover:text-gray-400" onClick={toggleMenu}>Login</Link>
-                        </li>
-                        <li>
+                        </li>}
+                        {!loggedIn && <li>
                             <Link href="/signup" className="hover:text-gray-400" onClick={toggleMenu}>Signup</Link>
-                        </li>
+                        </li>}
+                        {loggedIn && <li>
+                            <button onClick={handleLogout} className="hover:text-gray-400">Logout</button>
+                        </li>}
                     </ul>
                 </nav>
             )}
