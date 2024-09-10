@@ -2,6 +2,12 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation';
 import { verifyToken } from '@/utils/auth';
+import { BeatLoader } from 'react-spinners';
+import { FaCar } from "react-icons/fa";
+import { FaMapLocationDot } from "react-icons/fa6";
+import { MdViewTimeline, MdOutlineAddIcCall } from "react-icons/md";
+import CustomerHeader from '@/components/CustomerHeader';
+import FindCarForm from '@/components/FindCarForm';
 
 const Page = () => {
     const route = useRouter();
@@ -21,12 +27,29 @@ const Page = () => {
     }, [])
 
     return (
-        <section className='flex flex-col min-h-screen items-center justify-center'>
-            {validUser && <main>
-                <h1>Customer Dashboard</h1>
-                <h2>{userId}</h2>
+        <>
+            {!validUser && <main className='flex flex-col min-h-screen items-center justify-center'>
+                <h1 className='text-xl font-bold m-4'>Please wait a moment</h1>
+                <BeatLoader color='blue' />
             </main>}
-        </section>
+
+            {validUser && <main className='flex flex-col min-h-screen items-center'>
+                <CustomerHeader />
+
+                <section className="w-full h-[400px] bg-[url('/assets/all-images/cars-img/tesla.jpg')] bg-cover bg-center relative flex justify-center items-center">
+                    <div className="absolute inset-0 bg-blue-950 opacity-50"></div>
+                    <div className='relative flex flex-col justify-center items-start gap-8 pl-24 w-[1440px]'>
+                        <h1 className="text-white font-bold">Welcome {userId}</h1>
+                        <h1 className="text-white text-4xl font-bold">Reserve Now and get instance 20% off</h1>
+                        <button className='p-2 px-4 bg-white rounded-lg text-blue-950 font-bold text-xl'>Reverse a car</button>
+                    </div>
+                </section>
+
+                <FindCarForm />
+
+
+            </main>}
+        </>
     )
 }
 
