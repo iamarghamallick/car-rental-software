@@ -46,8 +46,6 @@ const Page = () => {
                 </section>
 
                 <FindCarForm />
-
-
             </main>}
         </>
     )

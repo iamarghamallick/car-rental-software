@@ -39,7 +39,7 @@ const LoginForm = () => {
                 setStatus(data.message);
                 setTimeout(() => {
                     router.push(`/${userType}-dashboard`, { scroll: false });
-                }, 2000);
+                }, 500);
             } else {
                 console.log("Some Error Occured!", data);
                 setStatus("Something went wrong!");
