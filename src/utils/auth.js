@@ -10,14 +10,14 @@ export const verifyToken = (token, userType) => {
         const currentTime = Date.now() / 1000;
 
         if (decodedToken.exp < currentTime) {
-            return { valid: false, error: "Token has expired" };
+            return { valid: false, decodedToken, error: "Token has expired" };
         }
 
         if (decodedToken.user_data.userType !== userType) {
-            return { valid: true, error: "Wrong User" };
+            return { valid: true, decodedToken, error: "Wrong User" };
         }
-        return { valid: true, decodedToken };
+        return { valid: true, decodedToken, error: null };
     } catch (error) {
-        return { valid: false, error: "Invalid token" };
+        return { valid: false, decodedToken, error: "Invalid token" };
     }
 };

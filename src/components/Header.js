@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react';
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false);
+    const [currUserType, setCurrUserType] = useState("");
 
     const route = useRouter();
     const pathname = usePathname();
@@ -16,6 +17,8 @@ const Header = () => {
         const { valid, decodedToken, error } = verifyToken(token, "");
         if (valid) {
             setLoggedIn(true);
+            setCurrUserType(decodedToken.user_data.userType);
+            console.log(error);
         }
     }, [pathname])
 
@@ -37,7 +40,8 @@ const Header = () => {
                     <Link href="/">ADDA-CRS</Link>
                 </div>
                 <nav className="hidden md:flex space-x-6">
-                    <Link href="/" className="hover:text-gray-400">Home</Link>
+                    {!loggedIn && <Link href="/" className="hover:text-gray-400">Home</Link>}
+                    {loggedIn && <Link href={`/${currUserType}-dashboard`} className="hover:text-gray-400">My Dashboard</Link>}
                     <Link href="/#about" className="hover:text-gray-400">About</Link>
                     <Link href="/#services" className="hover:text-gray-400">Services</Link>
                     {!loggedIn && <Link href="/login" className="hover:text-gray-400">Login</Link>}
@@ -55,9 +59,12 @@ const Header = () => {
             {isOpen && (
                 <nav className="md:hidden">
                     <ul className="flex flex-col items-center space-y-4 py-4 bg-gray-700 mt-4">
-                        <li>
+                        {loggedIn && <li>
+                            <Link href={`/${currUserType}-dashboard`} className="hover:text-gray-400" onClick={toggleMenu}>My Dashboard</Link>
+                        </li>}
+                        {!loggedIn && <li>
                             <Link href="/" className="hover:text-gray-400" onClick={toggleMenu}>Home</Link>
-                        </li>
+                        </li>}
                         <li>
                             <Link href="/#about" className="hover:text-gray-400" onClick={toggleMenu}>About</Link>
                         </li>
