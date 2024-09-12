@@ -21,7 +21,7 @@ export default function Home() {
           <div className="container mx-auto text-center">
             <h2 className="text-4xl font-extrabold mb-6 text-gray-800">Why Choose {CRS_TITLE}?</h2>
             <p className="text-lg mb-8 leading-relaxed text-gray-600">
-              We offer a wide range of vehicles to suit your needs, whether you're traveling for business or leisure. Our user-friendly platform makes booking a car quick and easy.
+              We offer a wide range of vehicles to suit your needs, whether you&#39;re traveling for business or leisure. Our user-friendly platform makes booking a car quick and easy.
             </p>
             <div className="flex flex-col md:flex-row justify-center md:space-x-6 gap-6 md:gap-8">
               <div className="bg-white p-6 rounded-lg shadow-lg border-t-4 border-blue-500">
@@ -34,7 +34,7 @@ export default function Home() {
               </div>
               <div className="bg-white p-6 rounded-lg shadow-lg border-t-4 border-purple-500">
                 <h3 className="text-2xl font-semibold mb-3 text-purple-600">24/7 Support</h3>
-                <p className="text-gray-700">We're here to help you at any time, day or night.</p>
+                <p className="text-gray-700">We&#39;re here to help you at any time, day or night.</p>
               </div>
             </div>
           </div>
