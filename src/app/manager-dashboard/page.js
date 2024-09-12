@@ -26,10 +26,7 @@ const Page = () => {
     return (
         <section className='flex flex-col min-h-screen items-center justify-center'>
             {validUser && <main>
-                {/* <h1>Manager Dashboard</h1>
-                <h2>{userId}</h2> */}
-                {/* <AiManagerV1 /> */}
-                {/* <AiManagerV2 /> */}
+                {/* <h2>{userId}</h2> */}
                 <AiManagerV3 />
             </main>}
         </section>

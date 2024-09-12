@@ -26,11 +26,8 @@ const Page = () => {
     return (
         <section className='flex flex-col min-h-screen items-center justify-center'>
             {validUser && <main>
-                {/* <h1>Driver Dashboard</h1>
-                <h2>{userId}</h2> */}
-                {/* <AiDriverV1 /> */}
+                {/* <h2>{userId}</h2> */}
                 <AiDriverV2 />
-                {/* <AiDriverV3 /> */}
             </main>}
         </section>
     )
