@@ -10,7 +10,7 @@ export default function Home() {
             <p className="text-xl mb-8 leading-relaxed">
               Your trusted partner for convenient and reliable car rentals.
             </p>
-            <a href="#services" className="bg-blue-800 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300 border border-white">
+            <a href="/about#services" className="bg-blue-800 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300 border border-white">
               Explore Our Services
             </a>
           </div>

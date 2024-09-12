@@ -10,9 +10,9 @@ const Popup = dynamic(() => import('react-leaflet').then(mod => mod.Popup), { ss
 
 const Driver = ({ driver }) => {
     const [requests, setRequests] = useState([
-        { id: '1', customer: 'John Doe', pickup: 'Central Park', dropoff: 'Times Square', fare: '$25' },
-        { id: '2', customer: 'Jane Smith', pickup: 'Brooklyn Bridge', dropoff: 'Empire State Building', fare: '$30' },
-        { id: '3', customer: 'Mike Johnson', pickup: 'Statue of Liberty', dropoff: 'One World Trade Center', fare: '$35' },
+        { id: '1', customer: 'Name here1', pickup: 'Central Park', dropoff: 'Times Square', fare: '$25' },
+        { id: '2', customer: 'Name here2', pickup: 'Brooklyn Bridge', dropoff: 'Empire State Building', fare: '$30' },
+        { id: '3', customer: 'Name here3', pickup: 'Statue of Liberty', dropoff: 'One World Trade Center', fare: '$35' },
     ]);
 
     const [notifications, setNotifications] = useState([
@@ -94,7 +94,7 @@ const Driver = ({ driver }) => {
                             </div>
                             <div className="flex items-center">
                                 <FaEnvelope className="text-gray-400 mr-2" />
-                                <span className="text-gray-600">alex.johnson@example.com</span>
+                                <span className="text-gray-600">email@example.com</span>
                             </div>
                         </div>
                     </div>
