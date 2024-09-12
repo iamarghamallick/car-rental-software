@@ -2,9 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation';
 import { verifyToken } from '@/utils/auth';
-import AiManagerV1 from '@/components/AiManagerV1';
-import AiManagerV3 from '@/components/AiManagerV3';
-import AiManagerV2 from '@/components/AiManagerV2';
+import Manager from '@/components/Manager';
 
 const Page = () => {
     const route = useRouter();
@@ -26,8 +24,7 @@ const Page = () => {
     return (
         <section className='flex flex-col min-h-screen items-center justify-center'>
             {validUser && <main>
-                {/* <h2>{userId}</h2> */}
-                <AiManagerV3 />
+                <Manager manager={userId} />
             </main>}
         </section>
     )

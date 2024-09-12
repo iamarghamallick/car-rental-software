@@ -5,6 +5,8 @@ import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 const Header = () => {
+    const CRS_TITLE = "WeDrive";
+
     const [isOpen, setIsOpen] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false);
     const [currUserType, setCurrUserType] = useState("");
@@ -37,13 +39,13 @@ const Header = () => {
         <header className="bg-gray-800 text-white py-4 sticky top-0 z-50">
             <div className="container mx-auto flex justify-between items-center px-4">
                 <div className="text-2xl font-bold">
-                    <Link href="/">ADDA-CRS</Link>
+                    <Link href="/">{CRS_TITLE}</Link>
                 </div>
                 <nav className="hidden md:flex space-x-6">
                     {!loggedIn && <Link href="/" className="hover:text-gray-400">Home</Link>}
                     {loggedIn && <Link href={`/${currUserType}-dashboard`} className="hover:text-gray-400">My Dashboard</Link>}
-                    <Link href="/#about" className="hover:text-gray-400">About</Link>
-                    <Link href="/#services" className="hover:text-gray-400">Services</Link>
+                    <Link href="/about" className="hover:text-gray-400">About</Link>
+                    <Link href="/about#services" className="hover:text-gray-400">Services</Link>
                     {!loggedIn && <Link href="/login" className="hover:text-gray-400">Login</Link>}
                     {!loggedIn && <Link href="/signup" className="hover:text-gray-400">Signup</Link>}
                     {loggedIn && <button onClick={handleLogout} className="hover:text-gray-400">Logout</button>}
@@ -66,10 +68,10 @@ const Header = () => {
                             <Link href="/" className="hover:text-gray-400" onClick={toggleMenu}>Home</Link>
                         </li>}
                         <li>
-                            <Link href="/#about" className="hover:text-gray-400" onClick={toggleMenu}>About</Link>
+                            <Link href="/about" className="hover:text-gray-400" onClick={toggleMenu}>About</Link>
                         </li>
                         <li>
-                            <Link href="/#services" className="hover:text-gray-400" onClick={toggleMenu}>Services</Link>
+                            <Link href="/about#services" className="hover:text-gray-400" onClick={toggleMenu}>Services</Link>
                         </li>
                         {!loggedIn && <li>
                             <Link href="/login" className="hover:text-gray-400" onClick={toggleMenu}>Login</Link>

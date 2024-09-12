@@ -5,17 +5,20 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend);
 
-const AiManagerV3 = () => {
+const Manager = ({ manager }) => {
     const [activeTab, setActiveTab] = useState('stats');
+
     const [cars, setCars] = useState([
-        { id: 1, make: 'Toyota', model: 'Corolla', year: 2022, price: 50 },
-        { id: 2, make: 'Honda', model: 'Civic', year: 2021, price: 55 },
-        { id: 3, make: 'Ford', model: 'Mustang', year: 2023, price: 80 },
+        { id: 1, make: 'Car1', model: 'model1', year: 2024, price: 50 },
+        { id: 2, make: 'Car2', model: 'model2', year: 2021, price: 55 },
+        { id: 3, make: 'Car3', model: 'model3', year: 2023, price: 80 },
     ]);
+
     const [drivers, setDrivers] = useState([
-        { id: 1, name: 'John Doe', contact: '123-456-7890', license: 'DL12345' },
-        { id: 2, name: 'Jane Smith', contact: '098-765-4321', license: 'DL67890' },
+        { id: 1, name: 'Name here1', contact: '123-456-7890', license: 'LN12345' },
+        { id: 2, name: 'Name here2', contact: '098-765-4321', license: 'LN67890' },
     ]);
+
     const [notifications, setNotifications] = useState([
         { id: 1, message: 'New booking received' },
         { id: 2, message: 'Low car availability' },
@@ -71,7 +74,7 @@ const AiManagerV3 = () => {
                         <div className="flex">
                             <div className="flex-shrink-0 flex items-center">
                                 <FaCar className="h-8 w-8 text-blue-500" />
-                                <span className="ml-2 text-xl font-bold">Car Rental Manager</span>
+                                <span className="ml-2 text-xl font-bold">Manager: {manager}</span>
                             </div>
                         </div>
                         <div className="flex items-center">
@@ -276,4 +279,4 @@ const AiManagerV3 = () => {
     );
 };
 
-export default AiManagerV3;
+export default Manager;

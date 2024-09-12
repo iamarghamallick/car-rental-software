@@ -1,45 +1,86 @@
 export default function Home() {
-  return (
-    <div className="flex flex-col min-h-screen">
-      <main className="flex-grow">
-        <div className="container mx-auto text-center py-12">
-          <h1 className="text-4xl font-bold mb-4">Welcome to ADDA-CRS</h1>
-          <p className="text-lg mb-6">
-            Your trusted partner for convenient and reliable car rentals.
-          </p>
-          <a href="#services" className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">
-            Explore Our Services
-          </a>
-        </div>
+  const CRS_TITLE = "WeDrive";
 
-        <section className="bg-gray-100 py-12">
+  return (
+    <div className="flex flex-col min-h-screen bg-gray-50">
+      <main className="flex-grow">
+        <header className="bg-gradient-to-r from-blue-800 via-blue-600 to-blue-500 text-white">
+          <div className="container mx-auto text-center py-16 px-4">
+            <h1 className="text-5xl font-extrabold mb-4">Welcome to {CRS_TITLE}</h1>
+            <p className="text-xl mb-8 leading-relaxed">
+              Your trusted partner for convenient and reliable car rentals.
+            </p>
+            <a href="/about#services" className="bg-blue-800 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300 border border-white">
+              Explore Our Services
+            </a>
+          </div>
+        </header>
+
+
+        <section className="bg-gradient-to-r from-blue-50 to-blue-100 py-16">
           <div className="container mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-4">Why Choose ADDA-CRS?</h2>
-            <p className="text-lg mb-6">
+            <h2 className="text-4xl font-extrabold mb-6 text-gray-800">Why Choose {CRS_TITLE}?</h2>
+            <p className="text-lg mb-8 leading-relaxed text-gray-600">
               We offer a wide range of vehicles to suit your needs, whether you&#39;re traveling for business or leisure. Our user-friendly platform makes booking a car quick and easy.
             </p>
-            <div className="flex flex-col md:flex-row justify-center md:space-x-8 gap-4 md:gap-2">
-              <div>
-                <h3 className="text-xl font-bold mb-2">Wide Selection</h3>
-                <p>Choose from a variety of cars, from economy to luxury.</p>
+            <div className="flex flex-col md:flex-row justify-center md:space-x-6 gap-6 md:gap-8">
+              <div className="bg-white p-6 rounded-lg shadow-lg border-t-4 border-blue-500">
+                <h3 className="text-2xl font-semibold mb-3 text-blue-600">Wide Selection</h3>
+                <p className="text-gray-700">Choose from a variety of cars, from economy to luxury.</p>
               </div>
-              <div>
-                <h3 className="text-xl font-bold mb-2">Affordable Prices</h3>
-                <p>Competitive rates and no hidden fees.</p>
+              <div className="bg-white p-6 rounded-lg shadow-lg border-t-4 border-green-500">
+                <h3 className="text-2xl font-semibold mb-3 text-green-600">Affordable Prices</h3>
+                <p className="text-gray-700">Competitive rates and no hidden fees.</p>
               </div>
-              <div>
-                <h3 className="text-xl font-bold mb-2">24/7 Support</h3>
-                <p>We&#39;re here to help you at any time, day or night.</p>
+              <div className="bg-white p-6 rounded-lg shadow-lg border-t-4 border-purple-500">
+                <h3 className="text-2xl font-semibold mb-3 text-purple-600">24/7 Support</h3>
+                <p className="text-gray-700">We&#39;re here to help you at any time, day or night.</p>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="py-12">
+
+        <section className="bg-purple-200 py-16">
           <div className="container mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-4">Get Started Today!</h2>
-            <p className="text-lg mb-6">Sign up now and book your next ride with ease.</p>
-            <a href="#signup" className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">
+            <h2 className="text-4xl font-extrabold mb-8">Featured Cars</h2>
+            <p className="text-lg mb-12 leading-relaxed">
+              Explore our top car choices and find the perfect ride for your journey. Each car is equipped to ensure comfort and style.
+            </p>
+            <div className="flex flex-col md:flex-row justify-center gap-8">
+              <div className="bg-gray-100 p-6 rounded-lg shadow-lg w-full md:w-1/3">
+                <img src="/assets/all-images/cars-img/mercedes-offer.png" alt="Luxury Sedan" className="w-full h-48 object-cover rounded-t-lg mb-4" />
+                <h3 className="text-2xl font-semibold mb-2">Lorem, ipsum.</h3>
+                <p className="text-lg mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, eos reiciendis! Dolore, modi perspiciatis ex aliquid natus et debitis sequi.</p>
+                <a href="#details" className="bg-blue-600 text-white py-2 px-4 rounded-lg shadow-md hover:bg-blue-500 transition duration-300">
+                  Book Now
+                </a>
+              </div>
+              <div className="bg-gray-100 p-6 rounded-lg shadow-lg w-full md:w-1/3">
+                <img src="/assets/all-images/cars-img/bmw-offer.png" alt="Family SUV" className="w-full h-48 object-cover rounded-t-lg mb-4" />
+                <h3 className="text-2xl font-semibold mb-2">Lorem, ipsum.</h3>
+                <p className="text-lg mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, eos reiciendis! Dolore, modi perspiciatis ex aliquid natus et debitis sequi.</p>
+                <a href="#details" className="bg-blue-600 text-white py-2 px-4 rounded-lg shadow-md hover:bg-blue-500 transition duration-300">
+                  Book Now
+                </a>
+              </div>
+              <div className="bg-gray-100 p-6 rounded-lg shadow-lg w-full md:w-1/3">
+                <img src="/assets/all-images/cars-img/nissan-offer.png" alt="Sporty Convertible" className="w-full h-48 object-cover rounded-t-lg mb-4" />
+                <h3 className="text-2xl font-semibold mb-2">Lorem, ipsum.</h3>
+                <p className="text-lg mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, eos reiciendis! Dolore, modi perspiciatis ex aliquid natus et debitis sequi.</p>
+                <a href="#details" className="bg-blue-600 text-white py-2 px-4 rounded-lg shadow-md hover:bg-blue-500 transition duration-300">
+                  Book Now
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-blue-100 py-16">
+          <div className="container mx-auto text-center">
+            <h2 className="text-4xl font-extrabold mb-6">Get Started Today!</h2>
+            <p className="text-lg mb-8 leading-relaxed">Sign up now and book your next ride with ease.</p>
+            <a href="/signup" className="bg-blue-600 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-blue-500 transition duration-300">
               Sign Up Now
             </a>
           </div>
