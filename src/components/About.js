@@ -108,7 +108,7 @@ const About = () => {
                     <div className="container mx-auto text-center">
                         <h2 className="text-4xl font-extrabold mb-6">Ready to Join {CRS_TITLE}?</h2>
                         <p className="text-lg mb-8">
-                            Whether you're a customer looking for a ride or a driver wanting to earn more, {CRS_TITLE} is here for you.
+                            Whether you&#39;re a customer looking for a ride or a driver wanting to earn more, {CRS_TITLE} is here for you.
                         </p>
                         <a href="#signup" className="bg-blue-800 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300 border border-white">
                             Get Started Today
