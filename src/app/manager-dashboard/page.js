@@ -2,9 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation';
 import { verifyToken } from '@/utils/auth';
-import AiManagerV1 from '@/components/AiManagerV1';
 import AiManagerV3 from '@/components/AiManagerV3';
-import AiManagerV2 from '@/components/AiManagerV2';
 
 const Page = () => {
     const route = useRouter();

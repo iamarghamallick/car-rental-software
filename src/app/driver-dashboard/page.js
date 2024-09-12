@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation';
 import { verifyToken } from '@/utils/auth';
 import AiDriverV2 from '@/components/AiDriverV2';
-import AiDriverV1 from '@/components/AiDriverV1';
-import AiDriverV3 from '@/components/AiDriverV3';
 
 const Page = () => {
     const route = useRouter();
