@@ -5,6 +5,8 @@ import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 const Header = () => {
+    const CRS_TITLE = "WeDrive";
+
     const [isOpen, setIsOpen] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false);
     const [currUserType, setCurrUserType] = useState("");
@@ -37,7 +39,7 @@ const Header = () => {
         <header className="bg-gray-800 text-white py-4 sticky top-0 z-50">
             <div className="container mx-auto flex justify-between items-center px-4">
                 <div className="text-2xl font-bold">
-                    <Link href="/">ADDA-CRS</Link>
+                    <Link href="/">{CRS_TITLE}</Link>
                 </div>
                 <nav className="hidden md:flex space-x-6">
                     {!loggedIn && <Link href="/" className="hover:text-gray-400">Home</Link>}

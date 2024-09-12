@@ -5,7 +5,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend);
 
-const AiManagerV3 = () => {
+const Manager = ({ manager }) => {
     const [activeTab, setActiveTab] = useState('stats');
     const [cars, setCars] = useState([
         { id: 1, make: 'Toyota', model: 'Corolla', year: 2022, price: 50 },
@@ -71,7 +71,7 @@ const AiManagerV3 = () => {
                         <div className="flex">
                             <div className="flex-shrink-0 flex items-center">
                                 <FaCar className="h-8 w-8 text-blue-500" />
-                                <span className="ml-2 text-xl font-bold">Car Rental Manager</span>
+                                <span className="ml-2 text-xl font-bold">Manager: {manager}</span>
                             </div>
                         </div>
                         <div className="flex items-center">
@@ -276,4 +276,4 @@ const AiManagerV3 = () => {
     );
 };
 
-export default AiManagerV3;
+export default Manager;

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation';
 import { verifyToken } from '@/utils/auth';
-import AiDriverV2 from '@/components/AiDriverV2';
+import Driver from '@/components/Driver';
 
 const Page = () => {
     const route = useRouter();
@@ -24,8 +24,7 @@ const Page = () => {
     return (
         <section className='flex flex-col min-h-screen items-center justify-center'>
             {validUser && <main>
-                {/* <h2>{userId}</h2> */}
-                <AiDriverV2 />
+                <Driver driver={userId} />
             </main>}
         </section>
     )

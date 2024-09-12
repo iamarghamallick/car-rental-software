@@ -8,7 +8,7 @@ const TileLayer = dynamic(() => import('react-leaflet').then(mod => mod.TileLaye
 const Marker = dynamic(() => import('react-leaflet').then(mod => mod.Marker), { ssr: false });
 const Popup = dynamic(() => import('react-leaflet').then(mod => mod.Popup), { ssr: false });
 
-const AiDriverV2 = () => {
+const Driver = ({ driver }) => {
     const [requests, setRequests] = useState([
         { id: '1', customer: 'John Doe', pickup: 'Central Park', dropoff: 'Times Square', fare: '$25' },
         { id: '2', customer: 'Jane Smith', pickup: 'Brooklyn Bridge', dropoff: 'Empire State Building', fare: '$30' },
@@ -80,7 +80,7 @@ const AiDriverV2 = () => {
                                 className="w-16 h-16 rounded-full object-cover"
                             />
                             <div>
-                                <h2 className="text-2xl font-bold">Alex Johnson</h2>
+                                <h2 className="text-2xl font-bold">{driver}</h2>
                                 <div className="flex items-center mt-1">
                                     <FaStar className="text-yellow-400 mr-1" />
                                     <span className="text-gray-600">4.8 (245 rides)</span>
@@ -225,4 +225,4 @@ const AiDriverV2 = () => {
     );
 };
 
-export default AiDriverV2;
+export default Driver;
