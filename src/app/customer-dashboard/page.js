@@ -3,11 +3,9 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation';
 import { verifyToken } from '@/utils/auth';
 import { BeatLoader } from 'react-spinners';
-import { FaCar } from "react-icons/fa";
-import { FaMapLocationDot } from "react-icons/fa6";
-import { MdViewTimeline, MdOutlineAddIcCall } from "react-icons/md";
 import CustomerHeader from '@/components/CustomerHeader';
 import FindCarForm from '@/components/FindCarForm';
+import CarList from '@/components/CarList';
 
 const Page = () => {
     const route = useRouter();
@@ -46,6 +44,8 @@ const Page = () => {
                 </section>
 
                 <FindCarForm />
+
+                <CarList />
             </main>}
         </>
     )

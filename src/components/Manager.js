@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { FaPlus, FaMinus, FaUser, FaChartBar, FaBell, FaCar, FaTrash } from 'react-icons/fa';
 import { Line, Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import CarList from './CarList';
+import AddCarForm from './AddCarForm';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend);
 
@@ -24,14 +26,7 @@ const Manager = ({ manager }) => {
         { id: 2, message: 'Low car availability' },
     ]);
 
-    const [newCar, setNewCar] = useState({ make: '', model: '', year: '', price: '' });
     const [newDriver, setNewDriver] = useState({ name: '', contact: '', license: '' });
-
-    const handleAddCar = (e) => {
-        e.preventDefault();
-        setCars([...cars, { id: cars.length + 1, ...newCar }]);
-        setNewCar({ make: '', model: '', year: '', price: '' });
-    };
 
     const handleRemoveCar = (id) => {
         setCars(cars.filter(car => car.id !== id));
@@ -131,78 +126,8 @@ const Manager = ({ manager }) => {
                 {activeTab === 'cars' && (
                     <div className="bg-white shadow overflow-hidden sm:rounded-lg p-4">
                         <h2 className="text-2xl font-bold mb-4">Manage Cars</h2>
-                        <form onSubmit={handleAddCar} className="mb-4">
-                            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                                <input
-                                    type="text"
-                                    placeholder="Make"
-                                    value={newCar.make}
-                                    onChange={(e) => setNewCar({ ...newCar, make: e.target.value })}
-                                    className="border rounded-md px-3 py-2"
-                                    required
-                                />
-                                <input
-                                    type="text"
-                                    placeholder="Model"
-                                    value={newCar.model}
-                                    onChange={(e) => setNewCar({ ...newCar, model: e.target.value })}
-                                    className="border rounded-md px-3 py-2"
-                                    required
-                                />
-                                <input
-                                    type="number"
-                                    placeholder="Year"
-                                    value={newCar.year}
-                                    onChange={(e) => setNewCar({ ...newCar, year: e.target.value })}
-                                    className="border rounded-md px-3 py-2"
-                                    required
-                                />
-                                <input
-                                    type="number"
-                                    placeholder="Price per day"
-                                    value={newCar.price}
-                                    onChange={(e) => setNewCar({ ...newCar, price: e.target.value })}
-                                    className="border rounded-md px-3 py-2"
-                                    required
-                                />
-                            </div>
-                            <button type="submit" className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
-                                <FaPlus className="inline-block mr-2" />
-                                Add Car
-                            </button>
-                        </form>
-                        <div className="overflow-x-auto">
-                            <table className="min-w-full divide-y divide-gray-200">
-                                <thead className="bg-gray-50">
-                                    <tr>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Make</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Model</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Year</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price/Day</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="bg-white divide-y divide-gray-200">
-                                    {cars.map((car) => (
-                                        <tr key={car.id}>
-                                            <td className="px-6 py-4 whitespace-nowrap">{car.make}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap">{car.model}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap">{car.year}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap">${car.price}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                <button
-                                                    onClick={() => handleRemoveCar(car.id)}
-                                                    className="text-red-600 hover:text-red-900"
-                                                >
-                                                    <FaTrash className="inline-block" />
-                                                    Remove
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
+                        <AddCarForm />
+                        <CarList />
                     </div>
                 )}
 
