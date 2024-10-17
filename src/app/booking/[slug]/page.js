@@ -3,7 +3,7 @@ import BookingForm from '@/components/BookingForm';
 import CarDetails from '@/components/CarDetails';
 import React, { useEffect, useState } from 'react'
 
-const page = ({ params }) => {
+const Page = ({ params }) => {
     const [loading, setLoading] = useState(false);
     const [status, setStatus] = useState("");
     const [car, setCar] = useState(null);
@@ -61,4 +61,4 @@ const page = ({ params }) => {
     )
 }
 
-export default page
+export default Page
