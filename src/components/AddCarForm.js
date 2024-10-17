@@ -72,7 +72,7 @@ const AddCarForm = () => {
                 />
                 <input
                     type="number"
-                    placeholder="Boot Space (liters)"
+                    placeholder="Seating Capacity"
                     value={newCar.space}
                     onChange={(e) => setNewCar({ ...newCar, space: e.target.value })}
                     className="border rounded-md px-3 py-2"

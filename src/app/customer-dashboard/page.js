@@ -43,7 +43,7 @@ const Page = () => {
                     </div>
                 </section>
 
-                <FindCarForm />
+                {/* <FindCarForm /> */}
 
                 <CarList />
             </main>}
