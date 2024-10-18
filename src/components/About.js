@@ -61,19 +61,24 @@ const About = () => {
                         </p>
                         <div className="flex flex-col md:flex-row justify-center gap-6 md:gap-8">
                             <div className="bg-white p-6 rounded-lg shadow-md w-full md:w-1/3">
-                                <img src="/assets/all-images/ava-1.jpg" alt="Team Member 1" className="w-full h-48 object-cover rounded-t-lg mb-4" />
-                                <h3 className="text-2xl font-semibold mb-2">Name Here</h3>
-                                <p className="text-gray-700">CEO & Founder</p>
+                                <img src="/assets/all-images/avater.png" alt="Team Member 1" className="w-full h-48 object-cover rounded-t-lg mb-4" />
+                                <h3 className="text-2xl font-semibold mb-2">Aman Santra</h3>
+                                <p className="text-gray-700">11500122009</p>
                             </div>
                             <div className="bg-white p-6 rounded-lg shadow-md w-full md:w-1/3">
-                                <img src="/assets/all-images/ava-2.jpg" alt="Team Member 2" className="w-full h-48 object-cover rounded-t-lg mb-4" />
-                                <h3 className="text-2xl font-semibold mb-2">Name Here</h3>
-                                <p className="text-gray-700">Chief Technology Officer</p>
+                                <img src="/assets/all-images/avater.png" alt="Team Member 2" className="w-full h-48 object-cover rounded-t-lg mb-4" />
+                                <h3 className="text-2xl font-semibold mb-2">Diptam Kundu</h3>
+                                <p className="text-gray-700">11500122011</p>
                             </div>
                             <div className="bg-white p-6 rounded-lg shadow-md w-full md:w-1/3">
-                                <img src="/assets/all-images/ava-3.jpg" alt="Team Member 3" className="w-full h-48 object-cover rounded-t-lg mb-4" />
-                                <h3 className="text-2xl font-semibold mb-2">Name Here</h3>
-                                <p className="text-gray-700">Head of Customer Relations</p>
+                                <img src="/assets/all-images/avater.png" alt="Team Member 3" className="w-full h-48 object-cover rounded-t-lg mb-4" />
+                                <h3 className="text-2xl font-semibold mb-2">Dipon De</h3>
+                                <p className="text-gray-700">11500122012</p>
+                            </div>
+                            <div className="bg-white p-6 rounded-lg shadow-md w-full md:w-1/3">
+                                <img src="/assets/all-images/avater.png" alt="Team Member 2" className="w-full h-48 object-cover rounded-t-lg mb-4" />
+                                <h3 className="text-2xl font-semibold mb-2">Argha Mallick</h3>
+                                <p className="text-gray-700">11500122014</p>
                             </div>
                         </div>
                     </div>
