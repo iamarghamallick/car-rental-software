@@ -127,6 +127,7 @@ const Manager = ({ manager }) => {
                     <div className="bg-white shadow overflow-hidden sm:rounded-lg p-4">
                         <h2 className="text-2xl font-bold mb-4">Manage Cars</h2>
                         <AddCarForm />
+                        <h1 className="text-4xl font-bold text-center mb-8">Available Cars</h1>
                         <CarList />
                     </div>
                 )}

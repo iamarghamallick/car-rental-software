@@ -16,7 +16,7 @@ const geistMono = localFont({
 });
 
 export const metadata = {
-  title: "Car Rental Service | ADDA-CRS",
+  title: "Car Rental Service | WeDrive",
   description: "Car Rental Software Project",
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CarDetails = ({ title, imageUrl, fuel, mileage, space, year, price }) => {
+const CarDetails = ({ user_id, car_id, title, imageUrl, fuel, mileage, space, year, price }) => {
     return (
         <div>
             <img
