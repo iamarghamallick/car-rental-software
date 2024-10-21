@@ -1,3 +1,6 @@
+"use client";
+import CarList from "@/components/CarList";
+
 export default function Home() {
   const CRS_TITLE = "WeDrive";
 
@@ -47,32 +50,7 @@ export default function Home() {
             <p className="text-lg mb-12 leading-relaxed">
               Explore our top car choices and find the perfect ride for your journey. Each car is equipped to ensure comfort and style.
             </p>
-            <div className="flex flex-col md:flex-row justify-center gap-8">
-              <div className="bg-gray-100 p-6 rounded-lg shadow-lg w-full md:w-1/3">
-                <img src="/assets/all-images/cars-img/mercedes-offer.png" alt="Luxury Sedan" className="w-full h-48 object-cover rounded-t-lg mb-4" />
-                <h3 className="text-2xl font-semibold mb-2">Lorem, ipsum.</h3>
-                <p className="text-lg mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, eos reiciendis! Dolore, modi perspiciatis ex aliquid natus et debitis sequi.</p>
-                <a href="#details" className="bg-blue-600 text-white py-2 px-4 rounded-lg shadow-md hover:bg-blue-500 transition duration-300">
-                  Book Now
-                </a>
-              </div>
-              <div className="bg-gray-100 p-6 rounded-lg shadow-lg w-full md:w-1/3">
-                <img src="/assets/all-images/cars-img/bmw-offer.png" alt="Family SUV" className="w-full h-48 object-cover rounded-t-lg mb-4" />
-                <h3 className="text-2xl font-semibold mb-2">Lorem, ipsum.</h3>
-                <p className="text-lg mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, eos reiciendis! Dolore, modi perspiciatis ex aliquid natus et debitis sequi.</p>
-                <a href="#details" className="bg-blue-600 text-white py-2 px-4 rounded-lg shadow-md hover:bg-blue-500 transition duration-300">
-                  Book Now
-                </a>
-              </div>
-              <div className="bg-gray-100 p-6 rounded-lg shadow-lg w-full md:w-1/3">
-                <img src="/assets/all-images/cars-img/nissan-offer.png" alt="Sporty Convertible" className="w-full h-48 object-cover rounded-t-lg mb-4" />
-                <h3 className="text-2xl font-semibold mb-2">Lorem, ipsum.</h3>
-                <p className="text-lg mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, eos reiciendis! Dolore, modi perspiciatis ex aliquid natus et debitis sequi.</p>
-                <a href="#details" className="bg-blue-600 text-white py-2 px-4 rounded-lg shadow-md hover:bg-blue-500 transition duration-300">
-                  Book Now
-                </a>
-              </div>
-            </div>
+            <CarList />
           </div>
         </section>
 

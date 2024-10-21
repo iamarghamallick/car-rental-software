@@ -11,8 +11,8 @@ export async function POST(req, res) {
         const user = await req.json();
         console.log(user);
 
-        const database = client.db("data_db");
-        const collection = database.collection("data_collection");
+        const database = client.db("crs");
+        const collection = database.collection("users");
 
         const userExists = await collection.findOne({ email: user.email });
         if (userExists) {
@@ -24,7 +24,7 @@ export async function POST(req, res) {
         await collection.insertOne(user);
 
         return NextResponse.json({
-            message: 'New Customer created successfully!'
+            message: 'New user created successfully!'
         }, { status: 201 });
     } catch (error) {
         return NextResponse.json({

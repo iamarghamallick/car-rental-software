@@ -2,18 +2,52 @@ import React, { useState, useEffect } from 'react';
 import { FaStar, FaPhone, FaEnvelope, FaMapMarkerAlt, FaCar, FaCalendarAlt, FaHistory } from 'react-icons/fa';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import dynamic from 'next/dynamic';
+import BookingList from './BookingList';
 
 const MapContainer = dynamic(() => import('react-leaflet').then(mod => mod.MapContainer), { ssr: false });
 const TileLayer = dynamic(() => import('react-leaflet').then(mod => mod.TileLayer), { ssr: false });
 const Marker = dynamic(() => import('react-leaflet').then(mod => mod.Marker), { ssr: false });
 const Popup = dynamic(() => import('react-leaflet').then(mod => mod.Popup), { ssr: false });
 
-const Driver = ({ driver }) => {
+const Driver = ({ driver_id, name, email }) => {
     const [requests, setRequests] = useState([
         { id: '1', customer: 'Name here1', pickup: 'Central Park', dropoff: 'Times Square', fare: '$25' },
         { id: '2', customer: 'Name here2', pickup: 'Brooklyn Bridge', dropoff: 'Empire State Building', fare: '$30' },
         { id: '3', customer: 'Name here3', pickup: 'Statue of Liberty', dropoff: 'One World Trade Center', fare: '$35' },
     ]);
+
+    const [bookingData, setBookingData] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [status, setStatus] = useState("");
+
+    useEffect(() => {
+        const fetchAllBookings = async () => {
+            setLoading(true);
+            try {
+                const res = await fetch('/api/bookings', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    setBookingData(data.bookings);
+                    setStatus(data.message);
+                } else {
+                    console.log("Some Error Occured!");
+                    setStatus("Something went wrong!");
+                }
+            } catch (error) {
+                console.log("Error:", error);
+                setStatus("Something went wrong!");
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchAllBookings();
+    }, [])
+
 
     const [notifications, setNotifications] = useState([
         { id: '1', message: 'New ride request from John Doe' },
@@ -80,7 +114,7 @@ const Driver = ({ driver }) => {
                                 className="w-16 h-16 rounded-full object-cover"
                             />
                             <div>
-                                <h2 className="text-2xl font-bold">{driver}</h2>
+                                <h2 className="text-2xl font-bold">{name}</h2>
                                 <div className="flex items-center mt-1">
                                     <FaStar className="text-yellow-400 mr-1" />
                                     <span className="text-gray-600">4.8 (245 rides)</span>
@@ -94,7 +128,7 @@ const Driver = ({ driver }) => {
                             </div>
                             <div className="flex items-center">
                                 <FaEnvelope className="text-gray-400 mr-2" />
-                                <span className="text-gray-600">email@example.com</span>
+                                <span className="text-gray-600">{email}</span>
                             </div>
                         </div>
                     </div>
@@ -124,49 +158,7 @@ const Driver = ({ driver }) => {
                                     {availability ? 'Available' : 'Unavailable'}
                                 </button>
                             </div>
-                            <DragDropContext onDragEnd={onDragEnd}>
-                                <Droppable droppableId="requests">
-                                    {(provided) => (
-                                        <ul {...provided.droppableProps} ref={provided.innerRef} className="space-y-4">
-                                            {filteredRequests().map((request, index) => (
-                                                <Draggable key={request.id} draggableId={request.id} index={index}>
-                                                    {(provided) => (
-                                                        <li
-                                                            ref={provided.innerRef}
-                                                            {...provided.draggableProps}
-                                                            {...provided.dragHandleProps}
-                                                            className="bg-gray-50 p-4 rounded-lg shadow flex justify-between items-center"
-                                                        >
-                                                            <div>
-                                                                <h4 className="font-semibold">{request.customer}</h4>
-                                                                <p className="text-sm text-gray-600">
-                                                                    <FaMapMarkerAlt className="inline mr-1" /> {request.pickup} to {request.dropoff}
-                                                                </p>
-                                                                <p className="text-sm font-semibold text-green-600">{request.fare}</p>
-                                                            </div>
-                                                            <div className="flex space-x-2">
-                                                                <button
-                                                                    onClick={() => handleAccept(request.id)}
-                                                                    className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition"
-                                                                >
-                                                                    Accept
-                                                                </button>
-                                                                <button
-                                                                    onClick={() => handleDecline(request.id)}
-                                                                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition"
-                                                                >
-                                                                    Decline
-                                                                </button>
-                                                            </div>
-                                                        </li>
-                                                    )}
-                                                </Draggable>
-                                            ))}
-                                            {provided.placeholder}
-                                        </ul>
-                                    )}
-                                </Droppable>
-                            </DragDropContext>
+                            <BookingList />
                         </div>
 
                         <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
