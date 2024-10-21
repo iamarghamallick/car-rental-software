@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
-import { FaPlus, FaMinus, FaUser, FaChartBar, FaBell, FaCar, FaTrash } from 'react-icons/fa';
+import React, { useEffect, useState } from 'react';
+import { FaPlus, FaMinus, FaUser, FaChartBar, FaBell, FaCar, FaTrash, FaVoicemail } from 'react-icons/fa';
+import { MdEmail } from "react-icons/md";
+import { GrUserManager } from "react-icons/gr";
 import { Line, Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import CarList from './CarList';
@@ -8,36 +10,12 @@ import AddCarForm from './AddCarForm';
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend);
 
 const Manager = ({ manager }) => {
-    const [activeTab, setActiveTab] = useState('stats');
-
-    const [cars, setCars] = useState([
-        { id: 1, make: 'Car1', model: 'model1', year: 2024, price: 50 },
-        { id: 2, make: 'Car2', model: 'model2', year: 2021, price: 55 },
-        { id: 3, make: 'Car3', model: 'model3', year: 2023, price: 80 },
-    ]);
-
+    const [activeTab, setActiveTab] = useState('cars');
     const [drivers, setDrivers] = useState([
         { id: 1, name: 'Name here1', contact: '123-456-7890', license: 'LN12345' },
         { id: 2, name: 'Name here2', contact: '098-765-4321', license: 'LN67890' },
     ]);
-
-    const [notifications, setNotifications] = useState([
-        { id: 1, message: 'New booking received' },
-        { id: 2, message: 'Low car availability' },
-    ]);
-
     const [newDriver, setNewDriver] = useState({ name: '', contact: '', license: '' });
-
-    const handleRemoveCar = (id) => {
-        setCars(cars.filter(car => car.id !== id));
-    };
-
-    const handleAddDriver = (e) => {
-        e.preventDefault();
-        setDrivers([...drivers, { id: drivers.length + 1, ...newDriver }]);
-        setNewDriver({ name: '', contact: '', license: '' });
-    };
-
     const revenueData = {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
         datasets: [
@@ -49,7 +27,6 @@ const Manager = ({ manager }) => {
             }
         ]
     };
-
     const bookingsData = {
         labels: ['Toyota', 'Honda', 'Ford', 'Chevrolet', 'Nissan'],
         datasets: [
@@ -60,37 +37,62 @@ const Manager = ({ manager }) => {
             }
         ]
     };
+    const [loading, setLoading] = useState(false);
+    const [status, setStatus] = useState("");
+    const [userdata, setUserdata] = useState(null);
+
+    const fetchUserDetails = async (_id) => {
+        setLoading(true);
+        try {
+            const res = await fetch(`/api/users?_id=${_id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const data = await res.json();
+            if (res.ok) {
+                setUserdata(data.user);
+                setStatus(data.message);
+            } else {
+                console.log("Some Error Occured!");
+                setStatus("Something went wrong!");
+            }
+        } catch (error) {
+            console.log("Error:", error);
+            setStatus("Something went wrong!");
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    useEffect(() => {
+        fetchUserDetails(manager);
+    }, [])
 
     return (
         <div className="min-h-screen bg-gray-100">
-            <nav className="bg-white shadow-lg">
-                <div className="w-[1024px] mx-auto px-4 sm:px-6 lg:px-8">
+            <nav className="w-full bg-white shadow-lg">
+                <div className="mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
                         <div className="flex">
                             <div className="flex-shrink-0 flex items-center">
-                                <FaCar className="h-8 w-8 text-blue-500" />
-                                <span className="ml-2 text-xl font-bold">Manager: {manager}</span>
+                                <GrUserManager className="h-8 w-8 text-blue-500" />
+                                <span className="ml-2 text-xl font-bold">{userdata ? userdata.name : "Loading Info..."}</span>
                             </div>
                         </div>
                         <div className="flex items-center">
-                            <button className="p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                <FaBell className="h-6 w-6" />
-                                <span className="sr-only">View notifications</span>
-                            </button>
+                            <div className="flex-shrink-0 flex items-center">
+                                <MdEmail className="h-8 w-8 text-blue-500" />
+                                <span className="ml-2 text-xl font-bold">{userdata ? userdata.email : ""}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </nav>
 
-            <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+            <div className="mx-auto py-6 sm:px-6 lg:px-8">
                 <div className="flex space-x-4 mb-4">
-                    <button
-                        onClick={() => setActiveTab('stats')}
-                        className={`px-4 py-2 rounded-md ${activeTab === 'stats' ? 'bg-blue-500 text-white' : 'bg-white text-gray-700'}`}
-                    >
-                        <FaChartBar className="inline-block mr-2" />
-                        Stats
-                    </button>
                     <button
                         onClick={() => setActiveTab('cars')}
                         className={`px-4 py-2 rounded-md ${activeTab === 'cars' ? 'bg-blue-500 text-white' : 'bg-white text-gray-700'}`}
@@ -105,23 +107,14 @@ const Manager = ({ manager }) => {
                         <FaUser className="inline-block mr-2" />
                         Drivers
                     </button>
+                    <button
+                        onClick={() => setActiveTab('stats')}
+                        className={`px-4 py-2 rounded-md ${activeTab === 'stats' ? 'bg-blue-500 text-white' : 'bg-white text-gray-700'}`}
+                    >
+                        <FaChartBar className="inline-block mr-2" />
+                        Stats
+                    </button>
                 </div>
-
-                {activeTab === 'stats' && (
-                    <div className="bg-white shadow overflow-hidden sm:rounded-lg p-4">
-                        <h2 className="text-2xl font-bold mb-4">Dashboard Statistics</h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <h3 className="text-lg font-semibold mb-2">Revenue</h3>
-                                <Line data={revenueData} />
-                            </div>
-                            <div>
-                                <h3 className="text-lg font-semibold mb-2">Bookings by Car Make</h3>
-                                <Bar data={bookingsData} />
-                            </div>
-                        </div>
-                    </div>
-                )}
 
                 {activeTab === 'cars' && (
                     <div className="bg-white shadow overflow-hidden sm:rounded-lg p-4">
@@ -135,38 +128,6 @@ const Manager = ({ manager }) => {
                 {activeTab === 'drivers' && (
                     <div className="bg-white shadow overflow-hidden sm:rounded-lg p-4">
                         <h2 className="text-2xl font-bold mb-4">Manage Drivers</h2>
-                        <form onSubmit={handleAddDriver} className="mb-4">
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <input
-                                    type="text"
-                                    placeholder="Name"
-                                    value={newDriver.name}
-                                    onChange={(e) => setNewDriver({ ...newDriver, name: e.target.value })}
-                                    className="border rounded-md px-3 py-2"
-                                    required
-                                />
-                                <input
-                                    type="text"
-                                    placeholder="Contact"
-                                    value={newDriver.contact}
-                                    onChange={(e) => setNewDriver({ ...newDriver, contact: e.target.value })}
-                                    className="border rounded-md px-3 py-2"
-                                    required
-                                />
-                                <input
-                                    type="text"
-                                    placeholder="License Number"
-                                    value={newDriver.license}
-                                    onChange={(e) => setNewDriver({ ...newDriver, license: e.target.value })}
-                                    className="border rounded-md px-3 py-2"
-                                    required
-                                />
-                            </div>
-                            <button type="submit" className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
-                                <FaPlus className="inline-block mr-2" />
-                                Add Driver
-                            </button>
-                        </form>
                         <div className="overflow-x-auto">
                             <table className="min-w-full divide-y divide-gray-200">
                                 <thead className="bg-gray-50">
@@ -189,18 +150,23 @@ const Manager = ({ manager }) => {
                         </div>
                     </div>
                 )}
-            </div>
 
-            {/* <div className="fixed bottom-4 right-4">
-                <div className="bg-white shadow-lg rounded-lg p-4 max-w-sm">
-                    <h3 className="text-lg font-semibold mb-2">Notifications</h3>
-                    <ul className="space-y-2">
-                        {notifications.map((notification) => (
-                            <li key={notification.id} className="text-sm">{notification.message}</li>
-                        ))}
-                    </ul>
-                </div>
-            </div> */}
+                {activeTab === 'stats' && (
+                    <div className="bg-white shadow overflow-hidden sm:rounded-lg p-4">
+                        <h2 className="text-2xl font-bold mb-4">Dashboard Statistics</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <h3 className="text-lg font-semibold mb-2">Revenue</h3>
+                                <Line data={revenueData} />
+                            </div>
+                            <div>
+                                <h3 className="text-lg font-semibold mb-2">Bookings by Car Make</h3>
+                                <Bar data={bookingsData} />
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </div>
         </div>
     );
 };

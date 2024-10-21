@@ -69,3 +69,41 @@ export async function POST(req, res) {
         await client.close();
     }
 }
+
+export async function DELETE(req, res) {
+    const client = new MongoClient(MONGO_URI);
+
+    try {
+        await client.connect();
+
+        const database = client.db("crs");
+        const collection = database.collection("cars");
+
+        const { searchParams } = new URL(req.url);
+        const _id = searchParams.get('_id');
+
+        if (_id) {
+            const result = await collection.deleteOne({ _id: new ObjectId(_id) });
+
+            if (result.deletedCount === 0) {
+                return NextResponse.json({
+                    error: 'Car not found',
+                }, { status: 404 });
+            }
+
+            return NextResponse.json({
+                message: 'Car deleted successfully',
+            }, { status: 200 });
+        } else {
+            return NextResponse.json({
+                error: 'Car ID is required to delete a car',
+            }, { status: 400 });
+        }
+    } catch (error) {
+        return NextResponse.json({
+            error: 'Server error! ' + error,
+        }, { status: 500 });
+    } finally {
+        await client.close();
+    }
+}
