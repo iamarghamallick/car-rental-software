@@ -15,6 +15,15 @@ export async function GET(req, res) {
         const { searchParams } = new URL(req.url);
         const _id = searchParams.get('_id');
 
+        if (_id === "all-drivers") {
+            const drivers = await collection.find({ userType: "driver" }).toArray();
+
+            return NextResponse.json({
+                message: 'Cars fetched successfully!',
+                drivers: drivers,
+            }, { status: 200 });
+        }
+
         if (_id) {
             const user = await collection.findOne({ _id: new ObjectId(_id) });
 

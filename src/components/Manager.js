@@ -6,6 +6,7 @@ import { Line, Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import CarList from './CarList';
 import AddCarForm from './AddCarForm';
+import DriverList from './DriverList';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend);
 
@@ -128,26 +129,7 @@ const Manager = ({ manager }) => {
                 {activeTab === 'drivers' && (
                     <div className="bg-white shadow overflow-hidden sm:rounded-lg p-4">
                         <h2 className="text-2xl font-bold mb-4">Manage Drivers</h2>
-                        <div className="overflow-x-auto">
-                            <table className="min-w-full divide-y divide-gray-200">
-                                <thead className="bg-gray-50">
-                                    <tr>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">License</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="bg-white divide-y divide-gray-200">
-                                    {drivers.map((driver) => (
-                                        <tr key={driver.id}>
-                                            <td className="px-6 py-4 whitespace-nowrap">{driver.name}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap">{driver.contact}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap">{driver.license}</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
+                        <DriverList />
                     </div>
                 )}
 
