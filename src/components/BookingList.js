@@ -76,26 +76,26 @@ const BookingList = () => {
                 {bookingList && bookingList.map((booking) => (
                     <div key={booking._id} className="bg-white rounded-lg shadow-lg overflow-hidden">
                         <img
-                            src={booking.carDetails.imageUrl}
+                            src={booking.carDetails ? booking.carDetails.imageUrl : "/assets/all-images/car-loading.jpg"}
                             alt="Car"
                             className="w-full h-48 object-cover"
                         />
                         <div className="p-6">
-                            <h2 className="text-2xl font-semibold mb-2">{trimString(booking.carDetails.title)}</h2>
-                            <div className='flex justify-around'>
+                            <h2 className="text-2xl font-semibold mb-2">{booking.carDetails ? trimString(booking.carDetails.title) : "Not Found This Car"}</h2>
+                            <div className='flex justify-between'>
                                 <p className="text-gray-700 mb-4">{booking.origin}</p>
                                 <p className="text-gray-700 mb-4">-</p>
                                 <p className="text-gray-700 mb-4">{booking.dest}</p>
                             </div>
-                            <div className='flex justify-around'>
+                            <div className='flex justify-between'>
                                 <p className="text-gray-700 mb-4">On {booking.date}</p>
                                 <p className="text-gray-700 mb-4">At {booking.time}</p>
                             </div>
-                            <div className='flex justify-around'>
+                            <div className='flex justify-between'>
                                 <p className="text-gray-700 mb-4">{booking.distance} km</p>
                                 <p className="text-gray-700 mb-4">₹{booking.fare}</p>
                             </div>
-                            <p className="text-gray-700 mb-4">Booked By {booking.customerDetails.name}</p>
+                            <p className="text-gray-700 mb-4">Booked By {booking.customerDetails ? booking.customerDetails.name : "Not Found"}</p>
                             <div className="flex justify-between mt-4">
                                 <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full">
                                     Accept

@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { BeatLoader } from 'react-spinners';
 
@@ -10,6 +11,7 @@ const SignupForm = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [status, setStatus] = useState("");
     const [loading, setLoading] = useState(false);
+    const router = useRouter();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -37,6 +39,9 @@ const SignupForm = () => {
             if (res.ok) {
                 setStatus(data.message);
                 console.log(data);
+                setTimeout(() => {
+                    router.push(`/login`, { scroll: false });
+                }, 100);
             } else {
                 console.log("Some Error Occured!");
                 setStatus("Something went wrong!");

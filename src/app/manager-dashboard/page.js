@@ -23,7 +23,7 @@ const Page = () => {
 
     return (
         <section className='flex flex-col min-h-screen items-center justify-center'>
-            {validUser && <main>
+            {validUser && <main className='container'>
                 <Manager manager={userId} />
             </main>}
         </section>

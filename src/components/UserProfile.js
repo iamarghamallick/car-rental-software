@@ -41,12 +41,6 @@ const UserProfile = ({ userId }) => {
         fetchUserDetails(userId);
     }, [])
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setUser({ ...user, [name]: value });
-        validateField(name, value);
-    };
-
     const handlePasswordChange = (e) => {
         const { name, value } = e.target;
         setPasswords({ ...passwords, [name]: value });
@@ -58,6 +52,9 @@ const UserProfile = ({ userId }) => {
         switch (name) {
             case "email":
                 newErrors.email = /^\S+@\S+\.\S+$/.test(value) ? "" : "Invalid email format";
+                break;
+            case "phone":
+                newErrors.phone = value.length === 10 ? "" : "Invalid phone number";
                 break;
             case "new":
                 newErrors.new = value.length < 8 ? "Password must be at least 8 characters" : "";
@@ -170,11 +167,23 @@ const UserProfile = ({ userId }) => {
                                         id="email"
                                         name="email"
                                         value={userdata.email}
-                                        onChange={handleInputChange}
                                         disabled={true}
                                         className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${isEditing ? 'bg-white' : 'bg-gray-100'} ${errors.email ? 'border-red-500' : ''}`}
                                     />
                                     {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+                                </div>
+                                <div>
+                                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                                    <input
+                                        type="number"
+                                        id="phone"
+                                        name="phone"
+                                        value={userdata.phone}
+                                        onChange={(e) => setUserdata({ ...userdata, phone: e.target.value })}
+                                        disabled={!isEditing}
+                                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${isEditing ? 'bg-white' : 'bg-gray-100'} ${errors.phone ? 'border-red-500' : ''}`}
+                                    />
+                                    {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
                                 </div>
                                 <div>
                                     <label htmlFor="userType" className="block text-sm font-medium text-gray-700 mb-1">User Type</label>
@@ -183,12 +192,23 @@ const UserProfile = ({ userId }) => {
                                         id="userType"
                                         name="userType"
                                         value={userdata.userType}
-                                        onChange={handleInputChange}
                                         disabled={true}
                                         className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${isEditing ? 'bg-white' : 'bg-gray-100'}`}
                                     />
                                 </div>
                                 {userdata.userType == 'driver' && <div>
+                                    <label htmlFor="region" className="block text-sm font-medium text-gray-700 mb-1">Region</label>
+                                    <input
+                                        type="text"
+                                        id="region"
+                                        name="region"
+                                        value={userdata.region}
+                                        onChange={(e) => setUserdata({ ...userdata, region: e.target.value })}
+                                        disabled={!isEditing}
+                                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${isEditing ? 'bg-white' : 'bg-gray-100'}`}
+                                    />
+                                </div>}
+                                {userdata.userType === 'driver' && <div>
                                     <label htmlFor="licenseNumber" className="block text-sm font-medium text-gray-700 mb-1">License Number</label>
                                     <input
                                         type="text"
@@ -196,8 +216,19 @@ const UserProfile = ({ userId }) => {
                                         name="licenseNumber"
                                         value={userdata.licenseNumber}
                                         onChange={(e) => setUserdata({ ...userdata, licenseNumber: e.target.value })}
-                                        disabled={!isEditing}
+                                        disabled={userdata.licenseVerified == "true" || !isEditing}
                                         className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${isEditing ? 'bg-white' : 'bg-gray-100'}`}
+                                    />
+                                </div>}
+                                {userdata.userType === 'driver' && <div>
+                                    <label htmlFor="licenseVerified" className="block text-sm font-medium text-gray-700 mb-1">License Verification Status</label>
+                                    <input
+                                        type="text"
+                                        id="licenseVerified"
+                                        name="licenseVerified"
+                                        value={userdata.licenseVerified === "true" ? "Verified" : "Not Verified"}
+                                        disabled={true}
+                                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
                                     />
                                 </div>}
                             </div>
