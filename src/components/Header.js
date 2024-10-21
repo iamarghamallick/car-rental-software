@@ -48,7 +48,8 @@ const Header = () => {
                     <Link href="/about#services" className="hover:text-gray-400">Services</Link>
                     {!loggedIn && <Link href="/login" className="hover:text-gray-400">Login</Link>}
                     {!loggedIn && <Link href="/signup" className="hover:text-gray-400">Signup</Link>}
-                    {loggedIn && <button onClick={handleLogout} className="hover:text-gray-400">Logout</button>}
+                    {loggedIn && <Link href="/profile" className="hover:bg-blue-600 bg-blue-700 px-2 rounded-sm">Profile</Link>}
+                    {loggedIn && <button onClick={handleLogout} className="hover:bg-blue-600 bg-blue-700 px-2 rounded-sm">Logout</button>}
                 </nav>
                 <div className="md:hidden">
                     <button onClick={toggleMenu} className="focus:outline-none">
