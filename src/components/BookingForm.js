@@ -46,7 +46,7 @@ const BookingForm = ({ user_id, car_id, title, imageUrl, fuel, mileage, space, y
 
     return (
         <div className="p-6 bg-gray-50 rounded-lg shadow-inner">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">{status ? status : "Book Your Ride"}</h3>
+            <h3 className="text-xl font-semibold text-gray-800 mb-4">{status ? status : "Rent This Car"}</h3>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                     <label htmlFor="origin" className="block text-sm font-medium text-gray-700">Origin</label>

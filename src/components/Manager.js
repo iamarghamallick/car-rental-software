@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FaPlus, FaMinus, FaUser, FaChartBar, FaBell, FaCar, FaTrash, FaVoicemail } from 'react-icons/fa';
+import { FaUser, FaChartBar, FaCar } from 'react-icons/fa';
 import { MdEmail } from "react-icons/md";
 import { GrUserManager } from "react-icons/gr";
 import { Line, Bar } from 'react-chartjs-2';
@@ -12,11 +12,6 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarEleme
 
 const Manager = ({ manager }) => {
     const [activeTab, setActiveTab] = useState('cars');
-    const [drivers, setDrivers] = useState([
-        { id: 1, name: 'Name here1', contact: '123-456-7890', license: 'LN12345' },
-        { id: 2, name: 'Name here2', contact: '098-765-4321', license: 'LN67890' },
-    ]);
-    const [newDriver, setNewDriver] = useState({ name: '', contact: '', license: '' });
     const revenueData = {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
         datasets: [
