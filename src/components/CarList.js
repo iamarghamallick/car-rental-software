@@ -70,7 +70,7 @@ const CarList = () => {
 
     return (
         <div className='container'>
-            {loading && <BeatLoader className='text-center' color='blue' />}
+            <BeatLoader className={`${loading ? "" : "invisible"} text-center`} color="blue" />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {!carList && repeat.map((_, index) => (
                     <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden">

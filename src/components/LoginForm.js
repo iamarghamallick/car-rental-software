@@ -36,7 +36,7 @@ const LoginForm = () => {
             if (res.ok) {
                 console.log(data);
                 localStorage.setItem('token', data.token);
-                setStatus(data.message);
+                setStatus(data.message + ". Redirecting to Dashboard...");
                 setTimeout(() => {
                     router.push(`/${userType}-dashboard`, { scroll: false });
                 }, 100);
