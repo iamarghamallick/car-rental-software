@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react'
 import { BeatLoader } from 'react-spinners';
 import { IoMdArrowBack } from "react-icons/io";
 import { AiOutlinePrinter } from "react-icons/ai";
+import { GoAlertFill } from "react-icons/go";
 
 const Page = ({ params }) => {
     const [loading, setLoading] = useState(false);
@@ -72,13 +73,13 @@ const Page = ({ params }) => {
     useEffect(() => {
         try {
             const token = localStorage.getItem('token');
-            const { valid, decodedToken, error } = verifyToken(token, "driver");
-            if (!valid || error) {
-                route.push('/login');
-            } else {
+            const { valid, decodedToken, error } = verifyToken(token, "customer");
+            if (valid && (decodedToken.user_data.userType === "customer" || decodedToken.user_data.userType === "driver")) {
                 console.log(decodedToken);
                 setUserId(decodedToken.user_data.id);
                 setValidUser(true);
+            } else {
+                route.push('/login');
             }
 
             getBooking();
@@ -91,6 +92,34 @@ const Page = ({ params }) => {
     const handlePrint = () => {
         window.print();
     };
+
+    const handleCancelBooking = async (booking) => {
+        console.log(booking);
+        setLoading(true);
+        try {
+            const res = await fetch('/api/bookings', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ ...booking, status: "cancelled" }),
+            });
+            const data = await res.json();
+            if (res.ok) {
+                setStatus(data.message);
+                console.log(data);
+            } else {
+                console.log("Some Error Occured!");
+                setStatus("Something went wrong!");
+            }
+        } catch (error) {
+            console.log("Error:", error);
+            setStatus("Something went wrong!");
+        } finally {
+            setLoading(false);
+            await getBooking();
+        }
+    }
 
     return (
         <>
@@ -121,11 +150,17 @@ const Page = ({ params }) => {
                         </button>
                     </div>
                 </div>
-                {loading && <h1>Loading Booking Details...</h1>}
+                <BeatLoader className={`${loading ? "" : "invisible"} text-center`} color="blue" />
                 {booking && <section className='container grid grid-cols-2 gap-8'>
                     <BookingDetails booking={booking} />
                     <BookedCarDetails carDetails={booking.carDetails} />
                 </section>}
+                {booking && <button
+                    disabled={booking.status === "cancelled"}
+                    onClick={() => handleCancelBooking(booking)}
+                    class={`${booking.status === "cancelled" ? "" : "hover:bg-red-700 hover:shadow-lg"} m-8 bg-red-600 text-white font-bold py-2 px-4 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 transition-all duration-300`}>
+                    {booking.status === "cancelled" ? "You have Cancelled This Booking" : "Cancel Booking"}
+                </button>}
             </main>}
         </>
     )
