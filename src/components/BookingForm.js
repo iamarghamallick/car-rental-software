@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 const BookingForm = ({ user_id, car_id, title, imageUrl, fuel, mileage, space, year, price }) => {
-    const [newBooking, setNewBooking] = useState({ user_id: user_id, car_id: car_id, origin: '', dest: '', date: '', time: '', distance: 0, fare: 0 });
+    const [newBooking, setNewBooking] = useState({ user_id: user_id, car_id: car_id, driver_id: '', origin: '', dest: '', date: '', time: '', distance: 0, fare: 0, carDetails: {}, customerDetails: {}, driverDetails: {} });
     const [loading, setLoading] = useState(false);
     const [status, setStatus] = useState("");
 
@@ -14,18 +14,53 @@ const BookingForm = ({ user_id, car_id, title, imageUrl, fuel, mileage, space, y
         setNewBooking({ ...newBooking, fare: calculateFare(newBooking.distance) })
     }, [newBooking.distance]);
 
+    const getCustomerDetails = async (_id) => {
+        const res = await fetch(`/api/users?_id=${_id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        const data = await res.json();
+        return data.user;
+    }
+
+    const getCarDetails = async (_id) => {
+        const res = await fetch(`/api/cars?_id=${_id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        const data = await res.json();
+        return data.car;
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(newBooking);
         setLoading(true);
 
         try {
+            const carDetails = await getCarDetails(newBooking.car_id);
+            const customerDetails = await getCustomerDetails(newBooking.user_id);
+
+            setNewBooking({
+                ...newBooking,
+                carDetails: carDetails,
+                customerDetails: customerDetails
+            });
+
             const res = await fetch('/api/bookings', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(newBooking),
+                body: JSON.stringify({
+                    ...newBooking,
+                    carDetails: carDetails,
+                    customerDetails: customerDetails
+                }),
             });
             const data = await res.json();
             if (res.ok) {

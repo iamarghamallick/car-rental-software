@@ -126,7 +126,7 @@ const Driver = ({ driver_id }) => {
                                     <div className='flex items-center'>
                                         <h2 className="text-2xl font-bold">{userdata.name}</h2>
                                         <TbPointFilled size={30} color={`${userdata.active === "true" ? "lightgreen" : "red"}`} />
-                                        <h2 className="text-green-500">{`${userdata.active === "true" ? "Active Now" : ""}`}</h2>
+                                        <h2 className="text-green-600">{`${userdata.active === "true" ? "Active Now" : ""}`}</h2>
                                     </div>
                                     <div className="flex items-center mt-1">
                                         <FaStar className="text-yellow-400 mr-1" />

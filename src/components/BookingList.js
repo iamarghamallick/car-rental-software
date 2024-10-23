@@ -77,8 +77,8 @@ const BookingList = ({ userdata }) => {
     }, []);
 
     const trimString = (str) => {
-        if (str.length > 40) {
-            return str.slice(0, 40) + '...';
+        if (str.length > 35) {
+            return str.slice(0, 35) + '...';
         }
         return str;
     }
@@ -92,7 +92,7 @@ const BookingList = ({ userdata }) => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ ...booking, driver_id: userdata._id }),
+                body: JSON.stringify({ ...booking, driver_id: userdata._id, driverDetails: userdata }),
             });
             const data = await res.json();
             if (res.ok) {
@@ -111,9 +111,32 @@ const BookingList = ({ userdata }) => {
         }
     }
 
-    const handleDeclineBooking = async (booking) => {
+    const handleDeclineBooking = async (booking, userdata) => {
         console.log(booking);
-        // todo
+        setLoading(true);
+        try {
+            const res = await fetch('/api/bookings', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ ...booking, driver_id: '', driverDetails: {} }),
+            });
+            const data = await res.json();
+            if (res.ok) {
+                setStatus(data.message);
+                console.log(data);
+            } else {
+                console.log("Some Error Occured!");
+                setStatus("Something went wrong!");
+            }
+        } catch (error) {
+            console.log("Error:", error);
+            setStatus("Something went wrong!");
+        } finally {
+            setLoading(false);
+            await getAllBookings();
+        }
     }
 
     return (
@@ -125,10 +148,10 @@ const BookingList = ({ userdata }) => {
                         <img
                             src={booking.carDetails ? booking.carDetails.imageUrl : "/assets/all-images/car-loading.jpg"}
                             alt="Car"
-                            className="w-full h-48 object-cover"
+                            className="w-full h-24 object-cover"
                         />
                         <div className="p-6">
-                            <h2 className="text-2xl font-semibold mb-2">{booking.carDetails ? trimString(booking.carDetails.title) : "Not Found This Car"}</h2>
+                            <h2 className="text-base font-semibold mb-2">{booking.carDetails ? trimString(booking.carDetails.title) : "Not Found This Car"}</h2>
                             <div className='flex justify-between'>
                                 <p className="text-gray-700 mb-4">{booking.origin}</p>
                                 <p className="text-gray-700 mb-4">-</p>
@@ -146,12 +169,12 @@ const BookingList = ({ userdata }) => {
                             <div className="flex justify-between mt-4">
                                 <button
                                     disabled={booking.driverDetails._id === userdata._id}
-                                    onClick={() => handleAcceptBooking(booking, userdata)} className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full">
+                                    onClick={() => handleAcceptBooking(booking, userdata)} className={`bg-green-500 ${booking.driverDetails._id === userdata._id ? "" : "hover:bg-green-600"} text-white font-bold py-2 px-4 rounded-full`}>
                                     {`${booking.driverDetails._id === userdata._id ? "Accepted" : "Accept"}`}
                                 </button>
-                                <button onClick={() => handleDeclineBooking(booking, userdata)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full">
+                                {booking.driverDetails._id === userdata._id && <button onClick={() => handleDeclineBooking(booking, userdata)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full">
                                     Decline
-                                </button>
+                                </button>}
                             </div>
                         </div>
                     </div>

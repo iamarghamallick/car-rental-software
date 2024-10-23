@@ -26,7 +26,7 @@ export async function GET(req, res) {
 
             return NextResponse.json({
                 message: 'Booking Details fetched successfully',
-                car: car,
+                booking: booking,
             }, { status: 200 });
         } else {
             const bookings = await collection.find({}).toArray();
