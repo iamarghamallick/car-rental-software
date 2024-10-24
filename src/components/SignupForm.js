@@ -1,4 +1,5 @@
 "use client";
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { BeatLoader } from 'react-spinners';
@@ -58,7 +59,7 @@ const SignupForm = () => {
         <div className="flex justify-center items-center min-h-screen bg-gray-100">
             <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-md w-full max-w-sm my-4">
                 <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
-
+                <p className={`${status ? '' : 'invisible'} my-1 text-center`}>{status ? status : "Signup Status"}</p>
                 <div className="mb-4">
                     <label htmlFor="name" className="block text-gray-700 mb-2">Name</label>
                     <input
@@ -124,8 +125,10 @@ const SignupForm = () => {
                 <button type="submit" className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 flex items-center justify-center">
                     {loading ? <BeatLoader color='white' /> : "Sign Up"}
                 </button>
-
-                <p className="my-6 text-center">{status}</p>
+                <div className='flex justify-between gap-4 my-2'>
+                    <h1>Already have an account?</h1>
+                    <Link className='text-blue-600 underline underline-offset-2' href="/login">Login</Link>
+                </div>
             </form>
         </div>
     );

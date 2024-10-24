@@ -1,4 +1,5 @@
 "use client";
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { BeatLoader } from 'react-spinners';
@@ -36,7 +37,7 @@ const LoginForm = () => {
             if (res.ok) {
                 console.log(data);
                 localStorage.setItem('token', data.token);
-                setStatus(data.message + ". Redirecting to Dashboard...");
+                setStatus(data.message);
                 setTimeout(() => {
                     router.push(`/${userType}-dashboard`, { scroll: false });
                 }, 100);
@@ -56,7 +57,7 @@ const LoginForm = () => {
         <div className="flex justify-center items-center min-h-screen bg-gray-100">
             <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-md w-full max-w-sm my-4">
                 <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
-
+                <p className={`${status ? '' : 'invisible'} my-1 text-center`}>{status ? status : "Login Status"}</p>
                 <div className="mb-4">
                     <label htmlFor="email" className="block text-gray-700 mb-2">Email</label>
                     <input
@@ -79,6 +80,7 @@ const LoginForm = () => {
                         required
                         className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-600"
                     />
+                    <Link className='text-blue-600 underline underline-offset-2 text-right w-full block' href='/reset-password'>Forgot password?</Link>
                 </div>
 
                 <div className="mb-6">
@@ -98,8 +100,10 @@ const LoginForm = () => {
                 <button type="submit" className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 flex justify-center items-center">
                     {loading ? <BeatLoader color='white' /> : "Login"}
                 </button>
-
-                <p className="my-6 text-center">{status}</p>
+                <div className='flex justify-between gap-4 my-2'>
+                    <h1>Not have an account?</h1>
+                    <Link className='text-blue-600 underline underline-offset-2' href="/signup">Signup</Link>
+                </div>
             </form>
         </div>
     );

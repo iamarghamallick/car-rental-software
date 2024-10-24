@@ -150,18 +150,15 @@ const Driver = ({ driver_id }) => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <div className="col-span-2">
                             <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
-                                <div className='flex items-center justify-between'>
-                                    <h3 className="text-xl font-semibold mb-4">Active Bookings</h3>
+                                <div className='flex flex-row items-center justify-between'>
+                                    <h3 className="text-xl font-semibold">Active Bookings</h3>
                                     <BeatLoader className={`${loading ? "" : "invisible"} text-center`} color="blue" />
-                                    <button
-                                        disabled={loading}
-                                        className={`px-4 py-2 rounded text-white transition-colors duration-300 ${userdata.active === "true" ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'}`}
-                                        onClick={() => handleAvailabilityToggle(userdata)}
-                                    >
-                                        {userdata.active === "true" ? 'Turn off Active Status' : 'Turn on Active Status'}
-                                    </button>
                                 </div>
-                                <BookingList userdata={userdata} />
+                                {userdata.active === "true" ?
+                                    <BookingList userdata={userdata} /> :
+                                    <div className='container flex items-center justify-center min-h-80'>
+                                        <h1 className='text-center'>Please start your shift to see Active Bookings</h1>
+                                    </div>}
                             </div>
                         </div>
 
@@ -178,15 +175,18 @@ const Driver = ({ driver_id }) => {
                             </div>
 
                             <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
-                                <h3 className="text-xl font-semibold mb-4">Quick Actions</h3>
+                                <div className='flex items-center justify-between mb-4'>
+                                    <h3 className="text-xl font-semibold">Quick Actions</h3>
+                                    <BeatLoader className={`${loading ? "" : "invisible"} text-center`} color="blue" />
+                                </div>
                                 <div className="grid grid-cols-2 gap-4">
-                                    <button className="bg-blue-500 text-white p-3 rounded-lg flex items-center justify-center">
-                                        <FaCar className="mr-2" /> Start Shift
+                                    <button disabled={loading} onClick={() => handleAvailabilityToggle(userdata)} className={`${userdata.active === "false" ? "bg-green-600" : "bg-red-600"} bg-blue-500 text-white p-3 rounded-lg flex items-center justify-center`}>
+                                        <FaCar className="mr-2" /> {userdata.active === "true" ? "End Shift" : "Start Shift"}
                                     </button>
                                     <button className="bg-purple-500 text-white p-3 rounded-lg flex items-center justify-center">
                                         <FaCalendarAlt className="mr-2" /> Schedule
                                     </button>
-                                    <button className="bg-green-500 text-white p-3 rounded-lg flex items-center justify-center">
+                                    <button className="bg-blue-500 text-white p-3 rounded-lg flex items-center justify-center">
                                         <FaHistory className="mr-2" /> Ride History
                                     </button>
                                     <button className="bg-yellow-500 text-white p-3 rounded-lg flex items-center justify-center">

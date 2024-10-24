@@ -7,7 +7,8 @@ import React, { useEffect, useState } from 'react'
 import { BeatLoader } from 'react-spinners';
 import { IoMdArrowBack } from "react-icons/io";
 import { AiOutlinePrinter } from "react-icons/ai";
-import { GoAlertFill } from "react-icons/go";
+import CustomerInfo from '@/components/CustomerInfo';
+import DriverInfo from '@/components/DriverInfo';
 
 const Page = ({ params }) => {
     const [loading, setLoading] = useState(false);
@@ -155,12 +156,16 @@ const Page = ({ params }) => {
                     <BookingDetails booking={booking} />
                     <BookedCarDetails carDetails={booking.carDetails} />
                 </section>}
-                {booking && <button
+                {booking && userdata.userType === "customer" && <button
                     disabled={booking.status === "cancelled"}
                     onClick={() => handleCancelBooking(booking)}
                     class={`${booking.status === "cancelled" ? "" : "hover:bg-red-700 hover:shadow-lg"} m-8 bg-red-600 text-white font-bold py-2 px-4 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 transition-all duration-300`}>
                     {booking.status === "cancelled" ? "You have Cancelled This Booking" : "Cancel Booking"}
                 </button>}
+                {booking && <section className='container grid grid-cols-2 gap-8 my-8'>
+                    <CustomerInfo customer={booking.customerDetails} />
+                    <DriverInfo driver={booking.driverDetails} />
+                </section>}
             </main>}
         </>
     )

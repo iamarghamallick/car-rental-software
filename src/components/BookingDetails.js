@@ -17,7 +17,7 @@ const BookingDetails = ({ booking }) => {
     return (
         <div className="mx-auto w-full bg-white rounded-xl shadow-md overflow-hidden">
             <div className="p-8">
-                <div className="grid grid-cols-1 gap-6">
+                <div className="grid grid-cols-1 gap-6 pb-6">
                     <DetailItem
                         icon={<FaIdCard size={24} />}
                         label="Booking ID"

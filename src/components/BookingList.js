@@ -172,9 +172,13 @@ const BookingList = ({ userdata }) => {
                             {userdata.userType === "driver" && <div className="flex justify-between mt-4">
                                 <button
                                     disabled={booking.driverDetails._id === userdata._id || booking.status === "cancelled"}
-                                    onClick={() => handleAcceptBooking(booking, userdata)} className={`bg-green-500 ${booking.driverDetails._id === userdata._id ? "" : "hover:bg-green-600"} text-white font-bold py-2 px-4 rounded-full`}>
+                                    onClick={() => handleAcceptBooking(booking, userdata)} className={`bg-green-500 ${booking.driverDetails._id === userdata._id ? "" : "hover:bg-green-600"} text-white font-bold py-2 px-4 rounded-full ${booking.status === "cancelled" ? "invisible" : ""}`}>
                                     {`${booking.driverDetails._id === userdata._id ? "Accepted" : "Accept"}`}
                                 </button>
+                                {booking.driverDetails._id === userdata._id && <Link
+                                    href={`/bookingdetails/${booking._id}`}
+                                    className='bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full'
+                                >View</Link>}
                                 {booking.driverDetails._id === userdata._id && <button
                                     disabled={booking.status === "cancelled"}
                                     onClick={() => handleDeclineBooking(booking, userdata)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full">

@@ -28,7 +28,3 @@ body {
     text-wrap: balance;
   }
 }
-
-button:disabled {
-  background-color: #a0a0a0;
-}
