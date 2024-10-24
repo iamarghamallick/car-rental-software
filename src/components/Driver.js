@@ -4,6 +4,7 @@ import BookingList from './BookingList';
 import { BeatLoader } from 'react-spinners';
 import { IoCall } from "react-icons/io5";
 import { TbPointFilled } from "react-icons/tb";
+import { MdContactEmergency } from "react-icons/md";
 
 const Driver = ({ driver_id }) => {
     const [bookingData, setBookingData] = useState(null);
@@ -184,7 +185,7 @@ const Driver = ({ driver_id }) => {
                                         <FaCar className="mr-2" /> {userdata.active === "true" ? "End Shift" : "Start Shift"}
                                     </button>
                                     <button className="bg-purple-500 text-white p-3 rounded-lg flex items-center justify-center">
-                                        <FaCalendarAlt className="mr-2" /> Schedule
+                                        <MdContactEmergency className="mr-2" /> E. Contact
                                     </button>
                                     <button className="bg-blue-500 text-white p-3 rounded-lg flex items-center justify-center">
                                         <FaHistory className="mr-2" /> Ride History

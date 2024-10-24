@@ -19,7 +19,6 @@ export default function Home() {
           </div>
         </header>
 
-
         <section className="bg-gradient-to-r from-blue-50 to-blue-100 py-16">
           <div className="container mx-auto text-center">
             <h2 className="text-4xl font-extrabold mb-6 text-gray-800">Why Choose {CRS_TITLE}?</h2>
