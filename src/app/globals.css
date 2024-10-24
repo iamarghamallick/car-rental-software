@@ -28,3 +28,54 @@ body {
     text-wrap: balance;
   }
 }
+
+.leaflet-control-geocoder {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-family: Arial, sans-serif;
+}
+
+.leaflet-control-geocoder-form input {
+  border-radius: 5px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  width: 300px;
+  font-size: 1rem;
+}
+
+.leaflet-control-geocoder-icon {
+  background-color: #007bff;
+  border-radius: 50%;
+  padding: 5px;
+  display: none;
+}
+
+.leaflet-control-geocoder-form button {
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  padding: 6px 12px;
+  border: none;
+  cursor: pointer;
+}
+
+.leaflet-control-geocoder-form-no-error {
+  display: none;
+}
+
+.leaflet-control-geocoder .leaflet-control-geocoder-alternatives li a {
+  width: 100%;
+}
+
+.leaflet-control-geocoder-address-detail {
+  display: none;
+}
+
+.leaflet-control-geocoder-address-context {
+  display: none;
+}
+
+/* .leaflet-control-geocoder .leaflet-control-geocoder-alternatives li a span {
+  display: none;
+} */
