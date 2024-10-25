@@ -85,6 +85,10 @@ const BookingList = ({ userdata }) => {
         return str;
     }
 
+    const generateOTP = () => {
+        return Math.floor(1000 + Math.random() * 9000);
+    }
+
     const handleAcceptBooking = async (booking, userdata) => {
         console.log(booking);
         setLoading(true);
@@ -94,7 +98,7 @@ const BookingList = ({ userdata }) => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ ...booking, driver_id: userdata._id, driverDetails: userdata }),
+                body: JSON.stringify({ ...booking, otp: generateOTP(), driver_id: userdata._id, driverDetails: userdata }),
             });
             const data = await res.json();
             if (res.ok) {
@@ -155,9 +159,9 @@ const BookingList = ({ userdata }) => {
                         <div className="p-6">
                             <h2 className="text-base font-semibold mb-2">{booking.carDetails ? trimString(booking.carDetails.title) : "Not Found This Car"}</h2>
                             <div className='flex justify-between'>
-                                <p className="text-gray-700 mb-4">{booking.origin}</p>
-                                <p className="text-gray-700 mb-4">-</p>
-                                <p className="text-gray-700 mb-4">{booking.dest}</p>
+                                <p className="text-gray-700 mb-4">{booking.origin.locationName}</p>
+                                <p className="text-gray-700 mb-4 mx-4">-</p>
+                                <p className="text-gray-700 mb-4">{booking.dest.locationName}</p>
                             </div>
                             <div className='flex justify-between'>
                                 <p className="text-gray-700 mb-4">On {booking.date}</p>
@@ -179,7 +183,7 @@ const BookingList = ({ userdata }) => {
                                     href={`/bookingdetails/${booking._id}`}
                                     className='bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full'
                                 >View</Link>}
-                                {booking.driverDetails._id === userdata._id && <button
+                                {booking.driverDetails._id === userdata._id && booking.status !== "journey started" && <button
                                     disabled={booking.status === "cancelled"}
                                     onClick={() => handleDeclineBooking(booking, userdata)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full">
                                     Decline

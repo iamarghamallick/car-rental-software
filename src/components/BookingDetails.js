@@ -17,10 +17,6 @@ const BookingDetails = ({ booking }) => {
 
     const [isModalOpen, setModalOpen] = useState(false);
 
-    // Define origin and destination coordinates
-    const origin = { lat: 22.5726, lng: 88.3639 }; // Example coordinates for Kolkata
-    const destination = { lat: 28.7041, lng: 77.1025 }; // Example coordinates for Delhi
-
     const openModal = () => setModalOpen(true);
     const closeModal = () => setModalOpen(false);
 
@@ -38,8 +34,8 @@ const BookingDetails = ({ booking }) => {
                     {isModalOpen && (
                         <RouteMapModal
                             title="Driving Route"
-                            origin={origin}
-                            destination={destination}
+                            origin={booking.origin.latlng}
+                            destination={booking.dest.latlng}
                             onClose={closeModal}
                         />
                     )}
@@ -48,13 +44,13 @@ const BookingDetails = ({ booking }) => {
                     <DetailItem
                         icon={<FaMapMarkerAlt size={24} />}
                         label="Origin"
-                        value={booking.origin}
+                        value={booking.origin.locationName}
                         ariaLabel="Origin location"
                     />
                     <DetailItem
                         icon={<FaMapMarkerAlt size={24} />}
                         label="Destination"
-                        value={booking.dest}
+                        value={booking.dest.locationName}
                         ariaLabel="Destination location"
                     />
                     <DetailItem
@@ -82,7 +78,6 @@ const BookingDetails = ({ booking }) => {
                         ariaLabel="Booking fare"
                     />
                 </div>
-
             </div>
         </div>
     );

@@ -13,6 +13,8 @@ const BookingForm = ({ user_id, car_id, title, imageUrl, fuel, mileage, space, y
         time: '',
         distance: 0,
         fare: 0,
+        status: 'active',
+        otp: "0",
         carDetails: {},
         customerDetails: {},
         driverDetails: {}
@@ -115,6 +117,8 @@ const BookingForm = ({ user_id, car_id, title, imageUrl, fuel, mileage, space, y
                     time: '',
                     distance: 0,
                     fare: 0,
+                    status: 'active',
+                    otp: "0",
                     carDetails: {},
                     customerDetails: {},
                     driverDetails: {}

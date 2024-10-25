@@ -152,11 +152,11 @@ const Page = ({ params }) => {
                     </div>
                 </div>
                 <BeatLoader className={`${loading ? "" : "invisible"} text-center`} color="blue" />
-                {booking && <section className='container grid grid-cols-2 gap-8'>
+                {userdata && booking && <section className='container grid grid-cols-2 gap-8'>
                     <BookingDetails booking={booking} />
-                    <BookedCarDetails carDetails={booking.carDetails} />
+                    <BookedCarDetails userdata={userdata} booking={booking} carDetails={booking.carDetails} />
                 </section>}
-                {booking && userdata && userdata.userType === "customer" && <button
+                {booking && userdata && userdata.userType === "customer" && booking.status === "active" && <button
                     disabled={booking.status === "cancelled"}
                     onClick={() => handleCancelBooking(booking)}
                     class={`${booking.status === "cancelled" ? "" : "hover:bg-red-700 hover:shadow-lg"} m-8 bg-red-600 text-white font-bold py-2 px-4 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 transition-all duration-300`}>

@@ -9,12 +9,14 @@ const RouteMapModal = ({ origin, destination, onClose, title }) => {
     // Fetch the route when the component mounts or when origin/destination change
     useEffect(() => {
         const fetchRoute = async () => {
+            console.log(origin, destination);
             if (origin && destination) {
                 try {
                     const response = await axios.get(
                         `https://router.project-osrm.org/route/v1/driving/${origin.lng},${origin.lat};${destination.lng},${destination.lat}?overview=full&geometries=geojson`
                     );
                     const routeCoords = response.data.routes[0].geometry.coordinates.map(([lng, lat]) => [lat, lng]);
+                    console.log(routeCoords);
                     setRoute(routeCoords); // Update the route with coordinates
                 } catch (error) {
                     console.error("Error fetching route", error);
@@ -31,7 +33,7 @@ const RouteMapModal = ({ origin, destination, onClose, title }) => {
                 <h2 className="text-center text-lg font-semibold m-4">{title}</h2>
                 <MapContainer
                     center={origin ? [origin.lat, origin.lng] : [22.5744, 88.3629]}
-                    zoom={8}
+                    zoom={12}
                     style={{ height: "70%", width: "100%" }}
                 >
                     <TileLayer
