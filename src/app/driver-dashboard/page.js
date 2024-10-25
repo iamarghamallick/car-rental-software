@@ -24,7 +24,10 @@ const Page = () => {
 
     return (
         <section className='flex flex-col min-h-screen items-center justify-center'>
-            {!validUser && <BeatLoader color='blue' />}
+            {!validUser && <main className='flex flex-col min-h-screen items-center justify-center'>
+                <h1 className='text-xl font-bold m-4'>Please wait a moment</h1>
+                <BeatLoader color='blue' />
+            </main>}
             {validUser && <main className='container'>
                 <Driver
                     driver_id={userId}

@@ -24,10 +24,10 @@ const Map = () => {
         <div>
             <div style={{ marginBottom: '20px' }}>
                 <button onClick={() => setIsOriginModalOpen(true)}>Select Origin</button>
-                <span>{origin ? `Origin: [${origin.lat}, ${origin.lng}]` : " No Origin Selected"}</span>
+                <span>{origin ? ` Origin: [${origin.lat}, ${origin.lng}]` : " No Origin Selected"}</span>
                 <br />
                 <button onClick={() => setIsDestinationModalOpen(true)}>Select Destination</button>
-                <span>{destination ? `Destination: [${destination.lat}, ${destination.lng}]` : " No Destination Selected"}</span>
+                <span>{destination ? ` Destination: [${destination.lat}, ${destination.lng}]` : " No Destination Selected"}</span>
             </div>
 
             {/* Origin Modal */}

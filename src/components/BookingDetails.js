@@ -1,5 +1,6 @@
-import React from "react";
-import { FaIdCard, FaUser, FaCar, FaMapMarkerAlt, FaCalendarAlt, FaClock, FaRulerHorizontal, FaMoneyBillWave } from "react-icons/fa";
+import React, { useState } from "react";
+import { FaIdCard, FaMapMarkerAlt, FaCalendarAlt, FaClock, FaRulerHorizontal, FaMoneyBillWave } from "react-icons/fa";
+import { RouteMapModal } from "./Map";
 
 const BookingDetails = ({ booking }) => {
     const DetailItem = ({ icon, label, value, ariaLabel }) => (
@@ -14,16 +15,34 @@ const BookingDetails = ({ booking }) => {
         </div>
     );
 
+    const [isModalOpen, setModalOpen] = useState(false);
+
+    // Define origin and destination coordinates
+    const origin = { lat: 22.5726, lng: 88.3639 }; // Example coordinates for Kolkata
+    const destination = { lat: 28.7041, lng: 77.1025 }; // Example coordinates for Delhi
+
+    const openModal = () => setModalOpen(true);
+    const closeModal = () => setModalOpen(false);
+
     return (
         <div className="mx-auto w-full bg-white rounded-xl shadow-md overflow-hidden">
             <div className="p-8">
-                <div className="grid grid-cols-1 gap-6 pb-6">
+                <div className="flex justify-between items-center gap-6 pb-6 border-b-2">
                     <DetailItem
                         icon={<FaIdCard size={24} />}
                         label="Booking ID"
                         value={booking._id}
                         ariaLabel="Booking ID"
                     />
+                    <button className="bg-blue-500 text-white p-2 px-4 rounded-lg mt-4" onClick={openModal}>View Route</button>
+                    {isModalOpen && (
+                        <RouteMapModal
+                            title="Driving Route"
+                            origin={origin}
+                            destination={destination}
+                            onClose={closeModal}
+                        />
+                    )}
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <DetailItem
@@ -63,6 +82,7 @@ const BookingDetails = ({ booking }) => {
                         ariaLabel="Booking fare"
                     />
                 </div>
+
             </div>
         </div>
     );

@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic"
 
-const Map = dynamic(() => import('./Map'), { ssr: false });
-
-export default Map;
+export const Map = dynamic(() => import('./Map'), { ssr: false });
+export const MapModal = dynamic(() => import('./MapModal'), { ssr: false });
+export const RouteMapModal = dynamic(() => import('./RouteMapModal'), { ssr: false });
