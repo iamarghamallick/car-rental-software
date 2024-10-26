@@ -91,7 +91,7 @@ const CarList = () => {
                         />
                         <div className="h-[200px] p-6 flex flex-col justify-between">
                             <h2 className="text-xl font-semibold mb-2">{car.title}</h2>
-                            <p className="text-gray-700 mb-4">Price per hour: ${car.price}</p>
+                            <p className="text-gray-700 mb-4">Price per hour: ₹{car.price}</p>
                             {pathname === '/manager-dashboard' ?
                                 <button onClick={() => handleRemoveCar(car._id)} disabled={removingCarId === car._id} className="text-center mx-auto bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full">
                                     {removingCarId === car._id ? "Removing..." : "Remove this Car"}

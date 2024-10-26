@@ -66,6 +66,10 @@ const BookingList = ({ activeTab, userdata }) => {
                         else
                             return booking.status === "active" || (booking.status === "journey started" && booking.driver_id === userdata._id);
                     })
+                } else if (userdata.userType === "customer") {
+                    updatedBookings = updatedBookings.filter((booking) => {
+                        return booking.customerDetails._id === userdata._id;
+                    })
                 }
                 console.log("Updated Booking", updatedBookings);
                 setBookingList(updatedBookings);
@@ -167,7 +171,8 @@ const BookingList = ({ activeTab, userdata }) => {
     return (
         <div className='container'>
             <BeatLoader className={`${loading ? "" : "invisible"} text-center`} color="blue" />
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            {userdata && ((userdata.userType === "driver" && userdata.status === "approved" && userdata.licenseVerified === "true") || (userdata.userType === "customer")) && <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {bookingList && bookingList.map((booking) => (
                     <div key={booking._id} className="bg-white rounded-lg shadow-lg overflow-hidden">
                         <img
@@ -215,7 +220,10 @@ const BookingList = ({ activeTab, userdata }) => {
                         </div>
                     </div>
                 ))}
-            </div>
+            </div>}
+
+            {userdata && (userdata.userType === "driver" && userdata.status !== "approved" && userdata.licenseVerified !== "true") && <h1 className='text-center'>You are not allowd to accept any booking. Please wait for a manager to approve you.</h1>}
+
             {bookingList && !bookingList.length && <h1 className='text-center'>Nothing is here</h1>}
         </div>
     )
