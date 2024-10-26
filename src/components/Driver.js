@@ -11,6 +11,7 @@ const Driver = ({ driver_id }) => {
     const [loading, setLoading] = useState(false);
     const [status, setStatus] = useState("");
     const [userdata, setUserdata] = useState(null);
+    const [activeTab, setActiveTab] = useState(true);
 
     const fetchUserDetails = async (_id) => {
         setLoading(true);
@@ -64,22 +65,14 @@ const Driver = ({ driver_id }) => {
 
     useEffect(() => {
         fetchUserDetails(driver_id);
-        fetchAllBookings();
+        // fetchAllBookings();
     }, [])
 
 
     const [notifications, setNotifications] = useState([
-        { id: '1', message: 'New ride request from John Doe' },
+        { id: '1', message: 'New ride request from Aman Santra' },
         { id: '2', message: 'Your next ride starts in 30 minutes' },
     ]);
-
-    const handleAccept = (id) => {
-
-    };
-
-    const handleDecline = (id) => {
-
-    };
 
     const handleAvailabilityToggle = async (userdata) => {
         console.log(userdata);
@@ -108,6 +101,8 @@ const Driver = ({ driver_id }) => {
             await fetchUserDetails(driver_id);
         }
     };
+
+    const switchTab = () => setActiveTab(!activeTab);
 
     return (
         <>
@@ -152,11 +147,14 @@ const Driver = ({ driver_id }) => {
                         <div className="col-span-2">
                             <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
                                 <div className='flex flex-row items-center justify-between'>
-                                    <h3 className="text-xl font-semibold">Active Bookings</h3>
+                                    <div className='flex gap-4'>
+                                        <button onClick={switchTab} className={`${activeTab ? 'bg-green-500 text-white' : 'bg-white'} p-2 rounded-lg border border-green-500 text-xl font-semibold`}>Active Bookings</button>
+                                        <button onClick={switchTab} className={`${!activeTab ? 'bg-blue-500 text-white' : 'bg-white'} p-2 rounded-lg border border-blue-500 text-xl font-semibold`}>History</button>
+                                    </div>
                                     <BeatLoader className={`${loading ? "" : "invisible"} text-center`} color="blue" />
                                 </div>
                                 {userdata.active === "true" ?
-                                    <BookingList userdata={userdata} /> :
+                                    <BookingList activeTab={activeTab} userdata={userdata} /> :
                                     <div className='container flex items-center justify-center min-h-80'>
                                         <h1 className='text-center'>Please start your shift to see Active Bookings</h1>
                                     </div>}

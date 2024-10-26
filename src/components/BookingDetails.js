@@ -40,7 +40,7 @@ const BookingDetails = ({ booking }) => {
                         />
                     )}
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
                     <DetailItem
                         icon={<FaMapMarkerAlt size={24} />}
                         label="Origin"

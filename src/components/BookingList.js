@@ -3,7 +3,7 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { BeatLoader } from 'react-spinners';
 
-const BookingList = ({ userdata }) => {
+const BookingList = ({ activeTab, userdata }) => {
     const [loading, setLoading] = useState(false);
     const [status, setStatus] = useState("");
     const [bookingList, setBookingList] = useState(null);
@@ -53,12 +53,20 @@ const BookingList = ({ userdata }) => {
             const data = await res.json();
             console.log(data);
             if (res.ok) {
-                const updatedBookings = await Promise.all(data.bookings.map(async (booking) => ({
+                let updatedBookings = await Promise.all(data.bookings.map(async (booking) => ({
                     ...booking,
                     customerDetails: booking.customerDetails || await getCustomerDetails(booking.user_id),
                     carDetails: booking.carDetails || await getCarDetails(booking.car_id),
                     driverDetails: booking.driverDetails || await getDriverDetails(booking.driver_id)
                 })));
+                if (userdata.userType === "driver") {
+                    updatedBookings = updatedBookings.filter((booking) => {
+                        if (!activeTab)
+                            return booking.driver_id === userdata._id && booking.status === "completed";
+                        else
+                            return booking.status === "active" || (booking.status === "journey started" && booking.driver_id === userdata._id);
+                    })
+                }
                 console.log("Updated Booking", updatedBookings);
                 setBookingList(updatedBookings);
                 setStatus(data.message);
@@ -76,11 +84,22 @@ const BookingList = ({ userdata }) => {
 
     useEffect(() => {
         getAllBookings();
+    }, [activeTab])
+
+    useEffect(() => {
+        getAllBookings();
     }, []);
 
     const trimString = (str) => {
         if (str.length > 35) {
             return str.slice(0, 35) + '...';
+        }
+        return str;
+    }
+
+    const trimLoationString = (str) => {
+        if (str.length > 25) {
+            return str.slice(0, 25) + '...';
         }
         return str;
     }
@@ -159,9 +178,9 @@ const BookingList = ({ userdata }) => {
                         <div className="p-6">
                             <h2 className="text-base font-semibold mb-2">{booking.carDetails ? trimString(booking.carDetails.title) : "Not Found This Car"}</h2>
                             <div className='flex justify-between'>
-                                <p className="text-gray-700 mb-4">{booking.origin.locationName}</p>
+                                <p className="text-gray-700 mb-4">{trimLoationString(booking.origin.locationName)}</p>
                                 <p className="text-gray-700 mb-4 mx-4">-</p>
-                                <p className="text-gray-700 mb-4">{booking.dest.locationName}</p>
+                                <p className="text-gray-700 mb-4">{trimLoationString(booking.dest.locationName)}</p>
                             </div>
                             <div className='flex justify-between'>
                                 <p className="text-gray-700 mb-4">On {booking.date}</p>
@@ -171,7 +190,6 @@ const BookingList = ({ userdata }) => {
                                 <p className="text-gray-700 mb-4">{booking.distance} km</p>
                                 <p className="text-gray-700 mb-4 font-semibold">₹{booking.fare}</p>
                             </div>
-                            <p className="text-gray-700 mb-4">Booked By {booking.customerDetails ? booking.customerDetails.name : "User Not Found"}</p>
                             <p className='bg-slate-200 text-lg w-full text-center p-2 rounded-lg font-semibold'>{capitalize(booking.status)}</p>
                             {userdata.userType === "driver" && <div className="flex justify-between mt-4">
                                 <button
@@ -183,7 +201,7 @@ const BookingList = ({ userdata }) => {
                                     href={`/bookingdetails/${booking._id}`}
                                     className='bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full'
                                 >View</Link>}
-                                {booking.driverDetails._id === userdata._id && booking.status !== "journey started" && <button
+                                {booking.driverDetails._id === userdata._id && booking.status !== "journey started" && booking.status !== "completed" && <button
                                     disabled={booking.status === "cancelled"}
                                     onClick={() => handleDeclineBooking(booking, userdata)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full">
                                     Decline
@@ -198,6 +216,7 @@ const BookingList = ({ userdata }) => {
                     </div>
                 ))}
             </div>
+            {bookingList && !bookingList.length && <h1 className='text-center'>Nothing is here</h1>}
         </div>
     )
 }

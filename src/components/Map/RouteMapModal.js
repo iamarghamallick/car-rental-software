@@ -29,7 +29,7 @@ const RouteMapModal = ({ origin, destination, onClose, title }) => {
 
     return (
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 1000 }}>
-            <div style={{ position: 'relative', margin: '50px auto', width: '80%', height: '80%', backgroundColor: 'white', padding: '20px', borderRadius: '10px' }}>
+            <div style={{ position: 'relative', margin: '50px auto', width: '100%', height: '100%', backgroundColor: 'white', padding: '20px', borderRadius: '10px' }}>
                 <h2 className="text-center text-lg font-semibold m-4">{title}</h2>
                 <MapContainer
                     center={origin ? [origin.lat, origin.lng] : [22.5744, 88.3629]}

@@ -3,6 +3,8 @@ import { MapModal } from './Map';
 import { useRouter } from 'next/navigation';
 
 const BookingForm = ({ user_id, car_id, title, imageUrl, fuel, mileage, space, year, price }) => {
+    const GRAPHHOPPER_API_KEY = process.env.NEXT_PUBLIC_GRAPHHOPPER_API_KEY;
+
     const [newBooking, setNewBooking] = useState({
         user_id: user_id,
         car_id: car_id,
@@ -39,14 +41,34 @@ const BookingForm = ({ user_id, car_id, title, imageUrl, fuel, mileage, space, y
         setIsDestinationModalOpen(false);
     };
 
-    const calculateFare = () => {
-        const farePerKm = price;
-        return newBooking.distance * farePerKm;
-    };
+    const calculateDistanceAndFare = async () => {
+        if (!newBooking.origin.latlng || !newBooking.dest.latlng)
+            return;
 
-    useEffect(() => {
-        setNewBooking({ ...newBooking, fare: calculateFare(newBooking.distance) })
-    }, [newBooking.distance]);
+        const originLatLng = `${newBooking.origin.latlng.lat},${newBooking.origin.latlng.lng}`;
+        const destinationLatLng = `${newBooking.dest.latlng.lat},${newBooking.dest.latlng.lng}`;
+
+        const url = `https://graphhopper.com/api/1/route?point=${originLatLng}&point=${destinationLatLng}&key=${GRAPHHOPPER_API_KEY}`;
+
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+
+            if (data.paths && data.paths.length > 0) {
+                const distance = (data.paths[0].distance / 1000).toFixed(0);
+                const fare = distance * price;
+                console.log(`Distance by road: ${distance} km and fare ${fare}`);
+                setNewBooking({ ...newBooking, distance: distance, fare: fare });
+                setStatus("");
+            } else {
+                console.error('No routes found');
+                setStatus("No routes found");
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            setStatus("Error fetching route");
+        }
+    }
 
     useEffect(() => {
         setNewBooking({ ...newBooking, origin: { locationName: origin.name, latlng: origin.latlng } })
@@ -55,6 +77,10 @@ const BookingForm = ({ user_id, car_id, title, imageUrl, fuel, mileage, space, y
     useEffect(() => {
         setNewBooking({ ...newBooking, dest: { locationName: destination.name, latlng: destination.latlng } })
     }, [destination.latlng]);
+
+    useEffect(() => {
+        calculateDistanceAndFare();
+    }, [newBooking.origin.latlng, newBooking.dest.latlng]);
 
     const getCustomerDetails = async (_id) => {
         const res = await fetch(`/api/users?_id=${_id}`, {
@@ -197,12 +223,9 @@ const BookingForm = ({ user_id, car_id, title, imageUrl, fuel, mileage, space, y
                     <input
                         type="number"
                         id="distance"
-                        value={newBooking.distance}
-                        onChange={(e) => {
-                            setNewBooking({ ...newBooking, distance: e.target.value })
-                            calculateFare();
-                        }}
-                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                        value={newBooking.distance || 0}
+                        readOnly
+                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 bg-gray-200"
                         required
                     />
                 </div>
@@ -211,7 +234,7 @@ const BookingForm = ({ user_id, car_id, title, imageUrl, fuel, mileage, space, y
                     <input
                         type="text"
                         id="fare"
-                        value={`₹${newBooking.fare}`}
+                        value={`₹${newBooking.fare || 0}`}
                         readOnly
                         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 bg-gray-200"
                     />
