@@ -3,6 +3,7 @@ import { FaEye, FaEyeSlash, FaUpload } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { BeatLoader } from "react-spinners";
+import { capitalize } from "@/utils/utility";
 
 const UserProfile = ({ userId }) => {
     const [passwords, setPasswords] = useState({ current: "", new: "", confirm: "" });
@@ -79,6 +80,16 @@ const UserProfile = ({ userId }) => {
         }
     };
 
+    const getStatusColor = (status) => {
+        if (status === "approved")
+            return "text-green-500";
+        if (status === "suspended")
+            return "text-yellow-500";
+        if (status === "rejected")
+            return "text-red-500";
+        return "";
+    }
+
     const handleUpdateProfile = async (e) => {
         e.preventDefault();
         console.log(userdata);
@@ -123,7 +134,7 @@ const UserProfile = ({ userId }) => {
             {!userdata && <BeatLoader color='blue' />}
             {userdata && <div className="bg-white rounded-lg shadow-xl p-8 max-w-4xl w-full">
                 <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">User Profile</h1>
-                <h1 className="text-xl font-bold text-center mb-8 text-gray-800">ID: {userId}</h1>
+                <h1 className="text-xl font-bold text-center mb-8 text-gray-800">UID: {userId}</h1>
 
                 {/* Basic Details Section */}
                 <div className="mb-8">
@@ -253,6 +264,13 @@ const UserProfile = ({ userId }) => {
                         )}
                     </div>
                 </div>
+
+                {/* Driver Status Section */}
+                {userdata.userType === 'driver' && <div className="mb-8 bg-slate-100 rounded p-2">
+                    <h2 className="text-2xl font-semibold text-gray-700 text-center">Driver Status:
+                        <span className={`${getStatusColor(userdata.status)}`}> {capitalize(userdata.status)}</span>
+                    </h2>
+                </div>}
 
                 {/* Password Management Section */}
                 <div className="mb-8">

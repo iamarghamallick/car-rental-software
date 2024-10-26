@@ -26,7 +26,7 @@ export async function GET(req, res) {
 
             return NextResponse.json({
                 message: 'Booking Details fetched successfully',
-                car: car,
+                booking: booking,
             }, { status: 200 });
         } else {
             const bookings = await collection.find({}).toArray();
@@ -64,6 +64,48 @@ export async function POST(req, res) {
     } catch (error) {
         return NextResponse.json({
             error: 'Server error!'
+        }, { status: 500 });
+    } finally {
+        await client.close();
+    }
+}
+
+export async function PUT(req) {
+    const client = new MongoClient(MONGO_URI);
+
+    try {
+        await client.connect();
+
+        const database = client.db("crs");
+        const collection = database.collection("bookings");
+
+        const body = await req.json();
+        const { _id, ...updateData } = body;
+
+        if (_id && ObjectId.isValid(_id)) {
+            const result = await collection.updateOne(
+                { _id: new ObjectId(_id) },
+                { $set: updateData }
+            );
+
+            if (result.matchedCount === 0) {
+                return NextResponse.json({
+                    error: 'Booking not found',
+                }, { status: 404 });
+            }
+
+            return NextResponse.json({
+                message: 'Booking updated successfully',
+                updatedCount: result.modifiedCount,
+            }, { status: 200 });
+        } else {
+            return NextResponse.json({
+                message: 'Invalid or missing Booking ID',
+            }, { status: 400 });
+        }
+    } catch (error) {
+        return NextResponse.json({
+            error: 'Server error! ' + error,
         }, { status: 500 });
     } finally {
         await client.close();

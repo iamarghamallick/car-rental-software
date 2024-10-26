@@ -16,70 +16,74 @@ const Page = ({ params }) => {
     const [userId, setUserId] = useState(null);
     const [userdata, setUserdata] = useState(null);
 
+    const getCar = async () => {
+        setLoading(true);
+        try {
+            const res = await fetch(`/api/cars?_id=${params.slug}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const data = await res.json();
+            if (res.ok) {
+                setCar(data.car);
+                setStatus(data.message);
+            } else {
+                console.log("Some Error Occured!");
+                setStatus("Something went wrong!");
+            }
+        } catch (error) {
+            console.log("Error:", error);
+            setStatus("Something went wrong!");
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    const fetchUserDetails = async (_id) => {
+        setLoading(true);
+        try {
+            const res = await fetch(`/api/users?_id=${_id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const data = await res.json();
+            console.log(data);
+            if (res.ok) {
+                setUserdata(data.user);
+                setStatus(data.message);
+            } else {
+                console.log("Some Error Occured!");
+                setStatus("Something went wrong!");
+            }
+        } catch (error) {
+            console.log("Error:", error);
+            setStatus("Something went wrong!");
+        } finally {
+            setLoading(false);
+        }
+    }
+
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        const { valid, decodedToken, error } = verifyToken(token, "customer");
-        if (!valid || error) {
+        try {
+            const token = localStorage.getItem('token');
+            const { valid, decodedToken, error } = verifyToken(token, "customer");
+            if (!valid || error) {
+                route.push('/login');
+            } else {
+                console.log(decodedToken);
+                setUserId(decodedToken.user_data.id);
+                setValidUser(true);
+            }
+
+            getCar();
+            fetchUserDetails(decodedToken.user_data.id);
+        } catch {
             route.push('/login');
-        } else {
-            console.log(decodedToken);
-            setUserId(decodedToken.user_data.id);
-            setValidUser(true);
         }
-
-        const getCar = async () => {
-            setLoading(true);
-            try {
-                const res = await fetch(`/api/cars?_id=${params.slug}`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
-                const data = await res.json();
-                if (res.ok) {
-                    setCar(data.car);
-                    setStatus(data.message);
-                } else {
-                    console.log("Some Error Occured!");
-                    setStatus("Something went wrong!");
-                }
-            } catch (error) {
-                console.log("Error:", error);
-                setStatus("Something went wrong!");
-            } finally {
-                setLoading(false);
-            }
-        }
-
-        const fetchUserDetails = async (_id) => {
-            setLoading(true);
-            try {
-                const res = await fetch(`/api/users?_id=${_id}`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
-                const data = await res.json();
-                console.log(data);
-                if (res.ok) {
-                    setUserdata(data.user);
-                    setStatus(data.message);
-                } else {
-                    console.log("Some Error Occured!");
-                    setStatus("Something went wrong!");
-                }
-            } catch (error) {
-                console.log("Error:", error);
-                setStatus("Something went wrong!");
-            } finally {
-                setLoading(false);
-            }
-        }
-
-        getCar();
-        fetchUserDetails(decodedToken.user_data.id);
     }, [])
 
     return (

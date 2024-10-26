@@ -1,91 +1,186 @@
+import { capitalize } from '@/utils/utility';
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
+import { BeatLoader } from 'react-spinners';
 
-const BookingList = () => {
+const BookingList = ({ activeTab, userdata }) => {
     const [loading, setLoading] = useState(false);
     const [status, setStatus] = useState("");
     const [bookingList, setBookingList] = useState(null);
 
-    useEffect(() => {
-        const getCustomerDetails = async (_id) => {
-            const res = await fetch(`/api/users?_id=${_id}`, {
+    const getCustomerDetails = async (_id) => {
+        const res = await fetch(`/api/users?_id=${_id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        const data = await res.json();
+        return data.user;
+    }
+
+    const getCarDetails = async (_id) => {
+        const res = await fetch(`/api/cars?_id=${_id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        const data = await res.json();
+        return data.car;
+    }
+
+    const getDriverDetails = async (_id) => {
+        const res = await fetch(`/api/users?_id=${_id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        const data = await res.json();
+        return data.user;
+    }
+
+    const getAllBookings = async () => {
+        setLoading(true);
+        try {
+            const res = await fetch('/api/bookings', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
             const data = await res.json();
-            return data.user;
-        }
-
-        const getCarDetails = async (_id) => {
-            const res = await fetch(`/api/cars?_id=${_id}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            const data = await res.json();
-            return data.car;
-        }
-
-        const getAllBookings = async () => {
-            setLoading(true);
-            try {
-                const res = await fetch('/api/bookings', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
-                const data = await res.json();
-                console.log(data);
-                if (res.ok) {
-                    const updatedBookings = await Promise.all(data.bookings.map(async (booking) => ({
-                        ...booking,
-                        customerDetails: await getCustomerDetails(booking.user_id),
-                        carDetails: await getCarDetails(booking.car_id),
-                    })));
-                    console.log("Updated Booking", updatedBookings);
-                    setBookingList(updatedBookings);
-                    setStatus(data.message);
-                } else {
-                    console.log("Some Error Occurred!");
-                    setStatus("Something went wrong!");
+            console.log(data);
+            if (res.ok) {
+                let updatedBookings = await Promise.all(data.bookings.map(async (booking) => ({
+                    ...booking,
+                    customerDetails: booking.customerDetails || await getCustomerDetails(booking.user_id),
+                    carDetails: booking.carDetails || await getCarDetails(booking.car_id),
+                    driverDetails: booking.driverDetails || await getDriverDetails(booking.driver_id)
+                })));
+                if (userdata.userType === "driver") {
+                    updatedBookings = updatedBookings.filter((booking) => {
+                        if (!activeTab)
+                            return booking.driver_id === userdata._id && booking.status === "completed";
+                        else
+                            return booking.status === "active" || (booking.status === "journey started" && booking.driver_id === userdata._id);
+                    })
                 }
-            } catch (error) {
-                console.log("Error:", error);
+                console.log("Updated Booking", updatedBookings);
+                setBookingList(updatedBookings);
+                setStatus(data.message);
+            } else {
+                console.log("Some Error Occurred!");
                 setStatus("Something went wrong!");
-            } finally {
-                setLoading(false);
             }
+        } catch (error) {
+            console.log("Error:", error);
+            setStatus("Something went wrong!");
+        } finally {
+            setLoading(false);
         }
+    }
+
+    useEffect(() => {
+        getAllBookings();
+    }, [activeTab])
+
+    useEffect(() => {
         getAllBookings();
     }, []);
 
     const trimString = (str) => {
-        if (str.length > 40) {
-            return str.slice(0, 40) + '...';
+        if (str.length > 35) {
+            return str.slice(0, 35) + '...';
         }
         return str;
     }
 
+    const trimLoationString = (str) => {
+        if (str.length > 25) {
+            return str.slice(0, 25) + '...';
+        }
+        return str;
+    }
+
+    const generateOTP = () => {
+        return Math.floor(1000 + Math.random() * 9000);
+    }
+
+    const handleAcceptBooking = async (booking, userdata) => {
+        console.log(booking);
+        setLoading(true);
+        try {
+            const res = await fetch('/api/bookings', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ ...booking, otp: generateOTP(), driver_id: userdata._id, driverDetails: userdata }),
+            });
+            const data = await res.json();
+            if (res.ok) {
+                setStatus(data.message);
+                console.log(data);
+            } else {
+                console.log("Some Error Occured!");
+                setStatus("Something went wrong!");
+            }
+        } catch (error) {
+            console.log("Error:", error);
+            setStatus("Something went wrong!");
+        } finally {
+            setLoading(false);
+            await getAllBookings();
+        }
+    }
+
+    const handleDeclineBooking = async (booking, userdata) => {
+        console.log(booking);
+        setLoading(true);
+        try {
+            const res = await fetch('/api/bookings', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ ...booking, driver_id: '', driverDetails: {} }),
+            });
+            const data = await res.json();
+            if (res.ok) {
+                setStatus(data.message);
+                console.log(data);
+            } else {
+                console.log("Some Error Occured!");
+                setStatus("Something went wrong!");
+            }
+        } catch (error) {
+            console.log("Error:", error);
+            setStatus("Something went wrong!");
+        } finally {
+            setLoading(false);
+            await getAllBookings();
+        }
+    }
+
     return (
         <div className='container'>
-            {loading && <h1 className='text-center'>Loading bookings...</h1>}
+            <BeatLoader className={`${loading ? "" : "invisible"} text-center`} color="blue" />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {bookingList && bookingList.map((booking) => (
                     <div key={booking._id} className="bg-white rounded-lg shadow-lg overflow-hidden">
                         <img
                             src={booking.carDetails ? booking.carDetails.imageUrl : "/assets/all-images/car-loading.jpg"}
                             alt="Car"
-                            className="w-full h-48 object-cover"
+                            className="w-full h-24 object-cover"
                         />
                         <div className="p-6">
-                            <h2 className="text-2xl font-semibold mb-2">{booking.carDetails ? trimString(booking.carDetails.title) : "Not Found This Car"}</h2>
+                            <h2 className="text-base font-semibold mb-2">{booking.carDetails ? trimString(booking.carDetails.title) : "Not Found This Car"}</h2>
                             <div className='flex justify-between'>
-                                <p className="text-gray-700 mb-4">{booking.origin}</p>
-                                <p className="text-gray-700 mb-4">-</p>
-                                <p className="text-gray-700 mb-4">{booking.dest}</p>
+                                <p className="text-gray-700 mb-4">{trimLoationString(booking.origin.locationName)}</p>
+                                <p className="text-gray-700 mb-4 mx-4">-</p>
+                                <p className="text-gray-700 mb-4">{trimLoationString(booking.dest.locationName)}</p>
                             </div>
                             <div className='flex justify-between'>
                                 <p className="text-gray-700 mb-4">On {booking.date}</p>
@@ -93,21 +188,35 @@ const BookingList = () => {
                             </div>
                             <div className='flex justify-between'>
                                 <p className="text-gray-700 mb-4">{booking.distance} km</p>
-                                <p className="text-gray-700 mb-4">₹{booking.fare}</p>
+                                <p className="text-gray-700 mb-4 font-semibold">₹{booking.fare}</p>
                             </div>
-                            <p className="text-gray-700 mb-4">Booked By {booking.customerDetails ? booking.customerDetails.name : "Not Found"}</p>
-                            <div className="flex justify-between mt-4">
-                                <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full">
-                                    Accept
+                            <p className='bg-slate-200 text-lg w-full text-center p-2 rounded-lg font-semibold'>{capitalize(booking.status)}</p>
+                            {userdata.userType === "driver" && <div className="flex justify-between mt-4">
+                                <button
+                                    disabled={booking.driverDetails._id === userdata._id || booking.status === "cancelled"}
+                                    onClick={() => handleAcceptBooking(booking, userdata)} className={`bg-green-500 ${booking.driverDetails._id === userdata._id ? "" : "hover:bg-green-600"} text-white font-bold py-2 px-4 rounded-full ${booking.status === "cancelled" ? "invisible" : ""}`}>
+                                    {`${booking.driverDetails._id === userdata._id ? "Accepted" : "Accept"}`}
                                 </button>
-                                <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full">
+                                {booking.driverDetails._id === userdata._id && <Link
+                                    href={`/bookingdetails/${booking._id}`}
+                                    className='bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full'
+                                >View</Link>}
+                                {booking.driverDetails._id === userdata._id && booking.status !== "journey started" && booking.status !== "completed" && <button
+                                    disabled={booking.status === "cancelled"}
+                                    onClick={() => handleDeclineBooking(booking, userdata)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full">
                                     Decline
-                                </button>
-                            </div>
+                                </button>}
+                            </div>}
+                            {userdata.userType === "customer" && <div className="flex justify-center mt-4">
+                                {booking.customerDetails._id === userdata._id && <Link href={`/bookingdetails/${booking._id}`} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full">
+                                    View Details
+                                </Link>}
+                            </div>}
                         </div>
                     </div>
                 ))}
             </div>
+            {bookingList && !bookingList.length && <h1 className='text-center'>Nothing is here</h1>}
         </div>
     )
 }
