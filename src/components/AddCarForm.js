@@ -1,7 +1,15 @@
 import React, { useState } from 'react'
 
 const AddCarForm = () => {
-    const [newCar, setNewCar] = useState({ title: '', imageUrl: '', fuel: '', mileage: '', space: '', year: '', price: '' });
+    const [newCar, setNewCar] = useState({
+        title: '',
+        imageUrl: '',
+        fuel: '',
+        mileage: '',
+        space: '',
+        year: '',
+        price: ''
+    });
     const [loading, setLoading] = useState(false);
     const [status, setStatus] = useState("");
 

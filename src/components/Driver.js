@@ -133,7 +133,7 @@ const Driver = ({ driver_id }) => {
                             <div className="flex items-center space-x-4">
                                 <div className="flex items-center">
                                     <IoCall className="text-gray-400 mr-2" />
-                                    <span className="text-gray-600">{userdata.phone}</span>
+                                    <span className="text-gray-600">{userdata.phone || "(Not updated)"}</span>
                                 </div>
                                 <div className="flex items-center">
                                     <FaEnvelope className="text-gray-400 mr-2" />

@@ -5,10 +5,19 @@ import React, { useState } from 'react';
 import { BeatLoader } from 'react-spinners';
 
 const SignupForm = () => {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [userType, setUserType] = useState('customer');
-    const [password, setPassword] = useState('');
+    const [newUser, setNewUser] = useState({
+        name: '',
+        email: '',
+        password: '',
+        userType: 'customer',
+        phone: '',
+        licenseNumber: '', // only for driver
+        licenseVerified: '', // only for driver
+        region: '', // only for driver
+        status: 'not active', // only for driver
+        active: 'false', // only for driver
+    });
+
     const [confirmPassword, setConfirmPassword] = useState('');
     const [status, setStatus] = useState("");
     const [loading, setLoading] = useState(false);
@@ -16,7 +25,7 @@ const SignupForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (password !== confirmPassword) {
+        if (newUser.password !== confirmPassword) {
             alert("Passwords do not match");
             return;
         }
@@ -29,12 +38,7 @@ const SignupForm = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    name: name,
-                    email: email,
-                    password: password,
-                    userType: userType
-                }),
+                body: JSON.stringify(newUser),
             });
             const data = await res.json();
             if (res.ok) {
@@ -65,8 +69,8 @@ const SignupForm = () => {
                     <input
                         type="text"
                         id="name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        value={newUser.name}
+                        onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
                         required
                         className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-600"
                     />
@@ -77,8 +81,8 @@ const SignupForm = () => {
                     <input
                         type="email"
                         id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={newUser.email}
+                        onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
                         required
                         className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-600"
                     />
@@ -88,8 +92,8 @@ const SignupForm = () => {
                     <label htmlFor="userType" className="block text-gray-700 mb-2">Sign Up as</label>
                     <select
                         id="userType"
-                        value={userType}
-                        onChange={(e) => setUserType(e.target.value)}
+                        value={newUser.userType}
+                        onChange={(e) => setNewUser({ ...newUser, userType: e.target.value })}
                         className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-600"
                     >
                         <option value="customer">Customer</option>
@@ -103,8 +107,8 @@ const SignupForm = () => {
                     <input
                         type="password"
                         id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        value={newUser.password}
+                        onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
                         required
                         className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-600"
                     />

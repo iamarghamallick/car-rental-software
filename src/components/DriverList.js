@@ -132,10 +132,10 @@ const DriverList = () => {
                             <h2 className="text-xl font-semibold mb-2">Status: {capitalize(driver.status)}</h2>
                         </div>
                         <p className="text-gray-600 mb-1">Email: {driver.email}</p>
-                        <p className="text-gray-600 mb-1">Phone: {driver.phone}</p>
-                        <p className="text-gray-600 mb-1">Region: {driver.region}</p>
+                        <p className="text-gray-600 mb-1">Phone: {driver.phone || "Not Available"}</p>
+                        <p className="text-gray-600 mb-1">Region: {driver.region || "Not Available"}</p>
                         <div className="flex items-center justify-between mb-4 bg-slate-200 rounded p-2">
-                            <p className="text-gray-600 font-bold">License Number: {driver.licenseNumber}</p>
+                            <p className="text-gray-600 font-bold">License Number: {driver.licenseNumber || "Not Available"}</p>
                             <div className="flex items-center justify-between">
                                 <button
                                     disabled={driver.licenseVerified === "true"}
