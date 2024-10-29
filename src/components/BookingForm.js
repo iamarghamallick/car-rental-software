@@ -19,7 +19,11 @@ const BookingForm = ({ user_id, car_id, title, imageUrl, fuel, mileage, space, y
         otp: "0",
         carDetails: {},
         customerDetails: {},
-        driverDetails: {}
+        driverDetails: {},
+        paymentDetails: {
+            paymentData: {},
+            orderData: {},
+        },
     });
     const [loading, setLoading] = useState(false);
     const [status, setStatus] = useState("");
@@ -147,7 +151,11 @@ const BookingForm = ({ user_id, car_id, title, imageUrl, fuel, mileage, space, y
                     otp: "0",
                     carDetails: {},
                     customerDetails: {},
-                    driverDetails: {}
+                    driverDetails: {},
+                    paymentDetails: {
+                        paymentData: {},
+                        orderData: {},
+                    },
                 });
                 console.log(data);
             } else {

@@ -101,7 +101,7 @@ const LoginForm = () => {
                     {loading ? <BeatLoader color='white' /> : "Login"}
                 </button>
                 <div className='flex justify-between gap-4 my-2'>
-                    <h1>Not have an account?</h1>
+                    <h1>Don&apos;t have an account?</h1>
                     <Link className='text-blue-600 underline underline-offset-2' href="/signup">Signup</Link>
                 </div>
             </form>

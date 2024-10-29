@@ -68,13 +68,13 @@ const BookingDetails = ({ booking }) => {
                     <DetailItem
                         icon={<FaRulerHorizontal size={24} />}
                         label="Distance"
-                        value={booking.distance}
+                        value={booking.distance + " km"}
                         ariaLabel="Travel distance"
                     />
                     <DetailItem
                         icon={<FaMoneyBillWave size={24} />}
                         label="Fare"
-                        value={booking.fare}
+                        value={"₹ " + booking.fare}
                         ariaLabel="Booking fare"
                     />
                 </div>
