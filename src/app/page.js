@@ -5,9 +5,9 @@ export default function Home() {
   const CRS_TITLE = "WeDrive";
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
-      <main className="flex-grow">
-        <header className="bg-gradient-to-r from-blue-800 via-blue-600 to-blue-500 text-white">
+    <div className="flex flex-col min-h-screen">
+      <main className="flex flex-col gap-4">
+        <header className="mt-4 rounded-lg bg-gradient-to-r from-blue-800 via-blue-600 to-blue-500 text-white">
           <div className="container mx-auto text-center py-16 px-4">
             <h1 className="text-5xl font-extrabold mb-4">Welcome to {CRS_TITLE}</h1>
             <p className="text-xl mb-8 leading-relaxed">
@@ -19,7 +19,7 @@ export default function Home() {
           </div>
         </header>
 
-        <section className="bg-gradient-to-r from-blue-50 to-blue-100 py-16">
+        <section className="bg-gradient-to-r from-blue-50 to-blue-100 py-16 rounded-lg">
           <div className="container mx-auto text-center">
             <h2 className="text-4xl font-extrabold mb-6 text-gray-800">Why Choose {CRS_TITLE}?</h2>
             <p className="text-lg mb-8 leading-relaxed text-gray-600">
@@ -42,8 +42,7 @@ export default function Home() {
           </div>
         </section>
 
-
-        <section className="bg-purple-200 py-16">
+        <section className="py-16">
           <div className="container mx-auto text-center">
             <h2 className="text-4xl font-extrabold mb-8">Featured Cars</h2>
             <p className="text-lg mb-12 leading-relaxed">
@@ -53,7 +52,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="bg-blue-100 py-16">
+        <section className="bg-blue-100 rounded-lg py-16 mb-4">
           <div className="container mx-auto text-center">
             <h2 className="text-4xl font-extrabold mb-6">Get Started Today!</h2>
             <p className="text-lg mb-8 leading-relaxed">Sign up now and book your next ride with ease.</p>

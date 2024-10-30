@@ -132,7 +132,7 @@ const UserProfile = ({ userId }) => {
     return (
         <>
             {!userdata && <BeatLoader color='blue' />}
-            {userdata && <div className="bg-white rounded-lg shadow-xl p-8 max-w-4xl w-full">
+            {userdata && <div className="bg-white rounded-lg shadow-xl p-8 my-4 max-w-4xl w-full">
                 <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">User Profile</h1>
                 <h1 className="text-xl font-bold text-center mb-8 text-gray-800">UID: {userId}</h1>
 

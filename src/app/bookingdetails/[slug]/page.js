@@ -129,8 +129,8 @@ const Page = ({ params }) => {
                 <BeatLoader color='blue' />
             </main>}
 
-            {validUser && <main className='bg-gray-100 flex flex-col min-h-screen items-center pt-8'>
-                <div className="container bg-white p-4 rounded-lg flex justify-between items-center mb-6">
+            {validUser && <main className='flex flex-col min-h-screen items-center pt-8'>
+                <div className="container p-4 rounded-lg flex justify-between items-center mb-6">
                     <h1 className="text-3xl font-bold text-gray-900">Booking Details</h1>
                     <div className="flex space-x-4">
                         <button
