@@ -70,7 +70,7 @@ const Manager = ({ manager }) => {
         <div className="min-h-screen bg-gray-100">
             <nav className="w-full bg-white shadow-lg">
                 <div className="mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between h-16">
+                    <div className="flex flex-col md:flex-row justify-between h-16">
                         <div className="flex">
                             <div className="flex-shrink-0 flex items-center">
                                 <GrUserManager className="h-8 w-8 text-blue-500" />

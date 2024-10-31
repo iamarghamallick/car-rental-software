@@ -21,7 +21,7 @@ const DriverInfo = ({ driver }) => {
                 {!driver && <div>
                     <h1 className="text-center pt-8">Your booking is yet to be accepted by a driver.</h1>
                 </div>}
-                {driver && <div className="grid grid-cols-1 gap-6 pb-6">
+                {driver && <div className="grid grid-cols-1 gap-2 md:gap-6 pb-6">
                     <DetailItem
                         icon={<FaUser size={24} />}
                         label="Name"

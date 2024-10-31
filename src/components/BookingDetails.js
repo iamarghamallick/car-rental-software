@@ -22,15 +22,15 @@ const BookingDetails = ({ booking }) => {
 
     return (
         <div className="mx-auto w-full bg-white rounded-xl shadow-md overflow-hidden">
-            <div className="p-8">
-                <div className="flex justify-between items-center gap-6 pb-6 border-b-2">
+            <div className="p-4 md:p-8">
+                <div className="flex flex-col md:flex-row justify-between items-center gap-2 md:gap-6 pb-6 border-b-2">
                     <DetailItem
                         icon={<FaIdCard size={24} />}
                         label="Booking ID"
                         value={booking._id}
                         ariaLabel="Booking ID"
                     />
-                    <button className="bg-blue-500 text-white p-2 px-4 rounded-lg mt-4" onClick={openModal}>View Route</button>
+                    <button className="bg-blue-500 text-white p-2 px-4 rounded-lg md:mt-4" onClick={openModal}>View Route</button>
                     {isModalOpen && (
                         <RouteMapModal
                             title="Driving Route"
@@ -40,7 +40,7 @@ const BookingDetails = ({ booking }) => {
                         />
                     )}
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-1 md:gap-6 pt-2">
                     <DetailItem
                         icon={<FaMapMarkerAlt size={24} />}
                         label="Origin"

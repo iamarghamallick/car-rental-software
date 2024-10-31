@@ -50,7 +50,7 @@ const About = () => {
     ];
 
     return (
-        <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col min-h-screen px-1">
             <header className="rounded-lg my-4 bg-gradient-to-r from-blue-800 via-blue-600 to-blue-500 text-white">
                 <div className="container mx-auto text-center py-16 px-4">
                     <h1 className="text-5xl font-extrabold mb-4">About {CRS_TITLE}</h1>

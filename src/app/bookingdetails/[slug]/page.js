@@ -129,13 +129,13 @@ const Page = ({ params }) => {
                 <BeatLoader color='blue' />
             </main>}
 
-            {validUser && <main className='flex flex-col min-h-screen items-center pt-8'>
-                <div className="container p-4 rounded-lg flex justify-between items-center mb-6">
-                    <h1 className="text-3xl font-bold text-gray-900">Booking Details</h1>
+            {validUser && <main className='flex flex-col min-h-screen items-center pt-8 px-1'>
+                <div className="container min-w-80 xl:min-w-[1024px] p-4 rounded-lg flex justify-between items-center mb-6">
+                    <h1 className="text-xl md:text-3xl font-bold text-gray-900">Booking Details</h1>
                     <div className="flex space-x-4">
                         <button
                             onClick={() => window.history.back()}
-                            className="flex items-center text-blue-600 hover:text-blue-800 transition duration-300 ease-in-out"
+                            className="hidden md:flex items-center text-blue-600 hover:text-blue-800 transition duration-300 ease-in-out"
                             aria-label="Go back"
                         >
                             <IoMdArrowBack className="mr-2" />
@@ -152,7 +152,7 @@ const Page = ({ params }) => {
                     </div>
                 </div>
                 <BeatLoader className={`${loading ? "" : "invisible"} text-center`} color="blue" />
-                {userdata && booking && <section className='container grid grid-cols-2 gap-8'>
+                {userdata && booking && <section className='container grid grid-cols-1 md:grid-cols-2 gap-8'>
                     <BookingDetails booking={booking} />
                     <BookedCarDetails userdata={userdata} booking={booking} carDetails={booking.carDetails} />
                 </section>}
@@ -162,7 +162,7 @@ const Page = ({ params }) => {
                     className={`${booking.status === "cancelled" ? "" : "hover:bg-red-700 hover:shadow-lg"} m-8 bg-red-600 text-white font-bold py-2 px-4 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 transition-all duration-300`}>
                     {booking.status === "cancelled" ? "You have Cancelled This Booking" : "Cancel Booking"}
                 </button>}
-                {booking && <section className='container grid grid-cols-2 gap-8 my-8'>
+                {booking && <section className='container grid grid-cols-1 md:grid-cols-2 gap-8 my-8'>
                     <CustomerInfo customer={booking.customerDetails} />
                     <DriverInfo driver={booking.driverDetails} />
                 </section>}

@@ -175,13 +175,13 @@ const BookingForm = ({ user_id, car_id, title, imageUrl, fuel, mileage, space, y
         <div className="p-6 bg-gray-50 rounded-lg shadow-inner">
             <h3 className="text-xl font-semibold text-gray-800 mb-4">{status ? status : "Rent This Car"}</h3>
             <form onSubmit={handleSubmit} className="space-y-4">
-                <div className='grid grid-cols-2 gap-4 border-b-2 pb-4'>
-                    <div className='flex flex-col items-center gap-y-2 pr-2 border-r-2'>
+                <div className='grid grid-cols-1 md:grid-cols-2 gap-4 border-b-2 pb-4'>
+                    <div className='flex flex-col items-center gap-y-2 pb-2 md:pb-0 md:pr-2 border-b-2 md:border-b-0 md:border-r-2'>
                         <button className='bg-blue-500 p-2 rounded-lg text-white font-semibold' onClick={() => setIsOriginModalOpen(true)}>Select Origin</button>
                         <span className='text-center'>{origin.name ? `${origin.name}` : "Not Selected"}</span>
                         <span className='text-center'>{origin.latlng ? `[${origin.latlng.lat}, ${origin.latlng.lng}]` : ""}</span>
                     </div>
-                    <div className='flex flex-col items-center gap-y-2 pl-2 border-l-2'>
+                    <div className='flex flex-col items-center gap-y-2 pt-2 md:pt-0 md:pl-2 border-t-2 md:border-t-0 md:border-l-2'>
                         <button className='bg-blue-500 p-2 rounded-lg text-white font-semibold' onClick={() => setIsDestinationModalOpen(true)}>Select Destination</button>
                         <span className='text-center'>{destination.name ? `${destination.name}` : "Not Selected"}</span>
                         <span className='text-center'>{destination.latlng ? `[${destination.latlng.lat}, ${destination.latlng.lng}]` : ""}</span>

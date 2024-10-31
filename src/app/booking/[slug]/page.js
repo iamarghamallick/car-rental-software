@@ -93,7 +93,7 @@ const Page = ({ params }) => {
                 <BeatLoader color='blue' />
             </main>}
 
-            {validUser && <section className='flex flex-col min-h-screen items-center justify-center'>
+            {validUser && <section className='flex flex-col min-h-screen items-center justify-center px-1'>
                 {loading && <h1>Loading Car Details...</h1>}
                 {car && userdata && <div className="max-w-6xl mx-auto p-6 my-6 grid grid-cols-1 md:grid-cols-2 gap-8 bg-white shadow-lg rounded-lg hover:shadow-2xl transition-shadow duration-300">
                     <CarDetails

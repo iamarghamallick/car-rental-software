@@ -62,12 +62,12 @@ const Page = () => {
                 <BeatLoader color='blue' />
             </main>}
 
-            {validUser && <main className='flex flex-col min-h-screen items-center'>
+            {validUser && <main className='flex flex-col min-h-screen items-center px-1'>
                 <CustomerHeader />
 
                 <section className="rounded-lg w-full h-[400px] bg-[url('/assets/all-images/cars-img/tesla.jpg')] bg-cover bg-center relative flex justify-center items-center">
                     <div className="absolute inset-0 rounded-lg bg-blue-950 opacity-50"></div>
-                    <div className='relative flex flex-col justify-center items-start gap-8 pl-24 w-[1440px]'>
+                    <div className='relative flex flex-col justify-center items-start gap-8 px-2 md:pl-24 md:w-[1440px]'>
                         {loading && <h1 className="text-white text-xl font-bold">Loading User Details...</h1>}
                         {userdata && <h1 className="text-white text-xl font-bold">Welcome {userdata.name}</h1>}
                         <h1 className="text-white text-4xl font-bold">Reserve Now and get instance 20% off</h1>
