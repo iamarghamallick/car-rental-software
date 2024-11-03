@@ -22,5 +22,37 @@
     "name": "WeDrive | Car Rental System",
     "short_name": "WeDrive",
     "start_url": "https://wedrive-crs.netlify.app/",
-    "description": "Car Rental Software Project"
+    "description": "Car Rental Software Project",
+    "app_id": "com.wedrive.app",
+    "launch_handler": {
+        "route_to": "/",
+        "launch_type": "standalone"
+    },
+    "screenshots": [
+        {
+            "src": "/screenshot1.png",
+            "sizes": "640x480",
+            "type": "image/png"
+        },
+        {
+            "src": "/screenshot2.png",
+            "sizes": "1280x720",
+            "type": "image/png"
+        }
+    ],
+    "categories": [
+        "utilities",
+        "productivity"
+    ],
+    "iarc_rating_id": "e-1234567890",
+    "prefer_related_applications": false,
+    "related_applications": [
+        {
+            "platform": "play",
+            "url": "https://play.google.com/store/apps/details?id=com.wedrive.app",
+            "id": "com.wedrive.app"
+        }
+    ],
+    "scope": "/",
+    "scope_extensions": []
 }
