@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation';
 import { verifyToken } from '@/utils/auth';
 import Manager from '@/components/Manager';
+import { BeatLoader } from 'react-spinners';
 
 const Page = () => {
     const route = useRouter();
@@ -23,7 +24,12 @@ const Page = () => {
 
     return (
         <section className='flex flex-col min-h-screen items-center justify-center px-1'>
-            {validUser && <main className='container'>
+            {!validUser && <main className='flex flex-col min-h-screen items-center justify-center'>
+                <h1 className='text-xl font-bold m-4'>Please wait a moment</h1>
+                <BeatLoader color='blue' />
+            </main>}
+
+            {validUser && <main className='w-screen max-w-[1440px] px-1'>
                 <Manager manager={userId} />
             </main>}
         </section>

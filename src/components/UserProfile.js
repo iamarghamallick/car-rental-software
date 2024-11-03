@@ -133,8 +133,8 @@ const UserProfile = ({ userId }) => {
         <>
             {!userdata && <BeatLoader color='blue' />}
             {userdata && <div className="bg-white rounded-lg shadow-xl p-8 my-4 max-w-4xl w-full">
-                <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">User Profile</h1>
-                <h1 className="text-xl font-bold text-center mb-8 text-gray-800">UID: {userId}</h1>
+                <h1 className="text-2xl md:text-3xl font-bold text-center mb-8 text-gray-800">My Profile</h1>
+                <h1 className="text-base md:text-xl font-bold text-center mb-8 text-gray-800">UID: {userId}</h1>
 
                 {/* Basic Details Section */}
                 <div className="mb-8">
@@ -168,7 +168,7 @@ const UserProfile = ({ userId }) => {
                                         value={userdata.name}
                                         onChange={(e) => setUserdata({ ...userdata, name: e.target.value })}
                                         disabled={!isEditing}
-                                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${isEditing ? 'bg-white' : 'bg-gray-100'}`}
+                                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${isEditing ? 'bg-white' : 'bg-gray-100'} z-20 relative`}
                                     />
                                 </div>
                                 <div>
@@ -192,7 +192,7 @@ const UserProfile = ({ userId }) => {
                                         value={userdata.phone}
                                         onChange={(e) => setUserdata({ ...userdata, phone: e.target.value })}
                                         disabled={!isEditing}
-                                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${isEditing ? 'bg-white' : 'bg-gray-100'} ${errors.phone ? 'border-red-500' : ''}`}
+                                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${isEditing ? 'bg-white' : 'bg-gray-100'} ${errors.phone ? 'border-red-500' : ''} z-20 relative`}
                                     />
                                     {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
                                 </div>
@@ -216,7 +216,7 @@ const UserProfile = ({ userId }) => {
                                         value={userdata.region}
                                         onChange={(e) => setUserdata({ ...userdata, region: e.target.value })}
                                         disabled={!isEditing}
-                                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${isEditing ? 'bg-white' : 'bg-gray-100'}`}
+                                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${isEditing ? 'bg-white' : 'bg-gray-100'} z-20 relative`}
                                     />
                                 </div>}
                                 {userdata.userType === 'driver' && <div>
@@ -228,7 +228,7 @@ const UserProfile = ({ userId }) => {
                                         value={userdata.licenseNumber}
                                         onChange={(e) => setUserdata({ ...userdata, licenseNumber: e.target.value })}
                                         disabled={userdata.licenseVerified == "true" || !isEditing}
-                                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${isEditing ? 'bg-white' : 'bg-gray-100'}`}
+                                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${isEditing ? 'bg-white' : 'bg-gray-100'} z-20 relative`}
                                     />
                                 </div>}
                                 {userdata.userType === 'driver' && <div>

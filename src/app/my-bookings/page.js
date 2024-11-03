@@ -61,7 +61,7 @@ const Page = () => {
                 <BeatLoader color='blue' />
             </main>}
 
-            {userdata && <main className='flex flex-col min-h-screen items-center mb-4'>
+            {userdata && <main className='flex flex-col min-h-screen items-center mb-4 px-1'>
                 <div className="container p-4 rounded-lg flex justify-center items-center mb-6">
                     <h1 className="text-3xl font-bold text-gray-900 text-center">My Bookings</h1>
                 </div>

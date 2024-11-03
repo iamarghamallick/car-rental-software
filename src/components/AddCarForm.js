@@ -51,7 +51,7 @@ const AddCarForm = () => {
                     placeholder="Car Title"
                     value={newCar.title}
                     onChange={(e) => setNewCar({ ...newCar, title: e.target.value })}
-                    className="border rounded-md px-3 py-2"
+                    className="border rounded-md px-3 py-2 z-20"
                     required
                 />
                 <input
@@ -59,7 +59,7 @@ const AddCarForm = () => {
                     placeholder="Car Image URL"
                     value={newCar.imageUrl}
                     onChange={(e) => setNewCar({ ...newCar, imageUrl: e.target.value })}
-                    className="border rounded-md px-3 py-2"
+                    className="border rounded-md px-3 py-2 z-20"
                     required
                 />
                 <input
@@ -67,7 +67,7 @@ const AddCarForm = () => {
                     placeholder="Fuel Type"
                     value={newCar.fuel}
                     onChange={(e) => setNewCar({ ...newCar, fuel: e.target.value })}
-                    className="border rounded-md px-3 py-2"
+                    className="border rounded-md px-3 py-2 z-20"
                     required
                 />
                 <input
@@ -75,7 +75,7 @@ const AddCarForm = () => {
                     placeholder="Mileage (kmpl)"
                     value={newCar.mileage}
                     onChange={(e) => setNewCar({ ...newCar, mileage: e.target.value })}
-                    className="border rounded-md px-3 py-2"
+                    className="border rounded-md px-3 py-2 z-20"
                     required
                 />
                 <input
@@ -83,7 +83,7 @@ const AddCarForm = () => {
                     placeholder="Seating Capacity"
                     value={newCar.space}
                     onChange={(e) => setNewCar({ ...newCar, space: e.target.value })}
-                    className="border rounded-md px-3 py-2"
+                    className="border rounded-md px-3 py-2 z-20"
                     required
                 />
                 <input
@@ -91,7 +91,7 @@ const AddCarForm = () => {
                     placeholder="Year"
                     value={newCar.year}
                     onChange={(e) => setNewCar({ ...newCar, year: e.target.value })}
-                    className="border rounded-md px-3 py-2"
+                    className="border rounded-md px-3 py-2 z-20"
                     required
                 />
                 <input
@@ -99,7 +99,7 @@ const AddCarForm = () => {
                     placeholder="Price per Hour"
                     value={newCar.price}
                     onChange={(e) => setNewCar({ ...newCar, price: e.target.value })}
-                    className="border rounded-md px-3 py-2"
+                    className="border rounded-md px-3 py-2 z-20"
                     required
                 />
             </div>

@@ -122,19 +122,20 @@ const DriverList = () => {
     };
 
     return (
-        <div className="container mx-auto p-6">
+        <div className="container rounded-lg mx-auto md:p-6">
             <BeatLoader className={`${loading ? "" : "invisible"} text-center`} color="blue" />
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
                 {drivers && drivers.map(driver => (
-                    <div key={driver._id} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300 focus-within:ring-2 focus-within:ring-blue-400">
-                        <div className="flex justify-between">
+                    <div key={driver._id} className="rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300 focus-within:ring-2 focus-within:ring-blue-400">
+                        <div className="flex justify-between items-center">
                             <h2 className="text-xl font-semibold mb-2">{driver.name}</h2>
-                            <h2 className="text-xl font-semibold mb-2">Status: {capitalize(driver.status)}</h2>
+                            <h2 className="text-xl font-semibold mb-2 hidden md:block">Status: {capitalize(driver.status)}</h2>
+                            <h2 className="text-base font-semibold mb-2 md:hidden">{capitalize(driver.status)}</h2>
                         </div>
                         <p className="text-gray-600 mb-1">Email: {driver.email}</p>
                         <p className="text-gray-600 mb-1">Phone: {driver.phone || "Not Available"}</p>
                         <p className="text-gray-600 mb-1">Region: {driver.region || "Not Available"}</p>
-                        <div className="flex items-center justify-between mb-4 bg-slate-200 rounded p-2">
+                        <div className="flex flex-col md:flex-row gap-4 md:gap-0 items-center justify-between mb-4 bg-slate-200 rounded-lg p-2">
                             <p className="text-gray-600 font-bold">License Number: {driver.licenseNumber || "Not Available"}</p>
                             <div className="flex items-center justify-between">
                                 <button
@@ -154,10 +155,10 @@ const DriverList = () => {
                                 </button>
                             </div>
                         </div>
-                        <div className="flex justify-between">
+                        <div className="flex justify-between gap-2 md:gap-0">
                             <button
                                 onClick={() => handleAction(driver, "approved")}
-                                className={`${driver.status === "approved" ? "bg-green-500 text-white" : "bg-gray-200 text-gray-800 hover:bg-green-600 hover:text-white"} px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50 transition-colors duration-300`}
+                                className={`${driver.status === "approved" ? "bg-green-500 text-white" : "bg-gray-200 text-gray-800 hover:bg-green-600 hover:text-white"} px-2 md:px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50 transition-colors duration-300`}
                                 disabled={driver.status === "approved"}
                                 aria-label={`Approve ${driver.name}`}
                             >
@@ -165,7 +166,7 @@ const DriverList = () => {
                             </button>
                             <button
                                 onClick={() => handleAction(driver, "rejected")}
-                                className={`${driver.status === "rejected" ? "bg-red-500 text-white" : "bg-gray-200 text-gray-800 hover:bg-red-600 hover:text-white"} px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-50 transition-colors duration-300`}
+                                className={`${driver.status === "rejected" ? "bg-red-500 text-white" : "bg-gray-200 text-gray-800 hover:bg-red-600 hover:text-white"} px-2 md:px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-50 transition-colors duration-300`}
                                 disabled={driver.status === "rejected"}
                                 aria-label={`Reject ${driver.name}`}
                             >
@@ -173,7 +174,7 @@ const DriverList = () => {
                             </button>
                             <button
                                 onClick={() => handleAction(driver, "suspended")}
-                                className={`${driver.status === "suspended" ? "bg-yellow-500 text-white" : "bg-gray-200 text-gray-800 hover:bg-yellow-600 hover:text-white"} px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-opacity-50 transition-colors duration-300`}
+                                className={`${driver.status === "suspended" ? "bg-yellow-500 text-white" : "bg-gray-200 text-gray-800 hover:bg-yellow-600 hover:text-white"} px-2 md:px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-opacity-50 transition-colors duration-300`}
                                 disabled={driver.status === "suspended"}
                                 aria-label={`Suspend ${driver.name}`}
                             >
