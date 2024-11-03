@@ -12,9 +12,9 @@ const Footer = () => {
     ];
 
     const appLinks = [
-        { icon: <FaGooglePlay />, url: "#", download: "", label: "Get it on Google Play", platform: "Android" },
-        { icon: <FaApple />, url: "#", download: "", label: "Download on App Store", platform: "iOS" },
-        { icon: <FaDesktop />, url: "#", download: "", label: "Download Desktop App", platform: "Desktop" }
+        { icon: <FaGooglePlay />, url: "/APPS/Android/WeDrive.apk", download: "/APPS/Android/WeDrive.apk", label: "Get it for Android", platform: "Android" },
+        { icon: <FaApple />, url: "/APPS/IOS/next-steps.html", download: "/APPS/IOS/next-steps.html", label: "Download on App Store", platform: "iOS" },
+        { icon: <FaDesktop />, url: "/APPS/Windows/readme.html", download: "/APPS/Windows/readme.html", label: "Download Desktop App", platform: "Desktop" }
     ];
 
     return (

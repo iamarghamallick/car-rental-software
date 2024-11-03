@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "app.netlify.wedrive_crs.twa",
+        "sha256_cert_fingerprints": ["AD:C8:D3:02:C8:25:66:6F:53:3B:21:86:F7:1A:09:06:A7:E7:56:DD:AF:00:1D:11:5B:7C:91:C2:97:53:19:FD"]
+      }
+    }]
