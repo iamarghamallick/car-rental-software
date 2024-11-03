@@ -23,7 +23,7 @@ const Page = () => {
     }, [])
 
     return (
-        <section className='flex flex-col min-h-screen items-center justify-center'>
+        <section className='flex flex-col min-h-screen items-center justify-center px-1'>
             {!validUser && <main className='flex flex-col min-h-screen items-center justify-center'>
                 <h1 className='text-xl font-bold m-4'>Please wait a moment</h1>
                 <BeatLoader color='blue' />

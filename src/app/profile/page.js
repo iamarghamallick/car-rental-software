@@ -19,7 +19,7 @@ const Page = () => {
     }, [])
 
     return (
-        <section className='flex flex-col min-h-screen items-center justify-center'>
+        <section className='flex flex-col min-h-screen items-center justify-center px-1'>
             {!userId && <main>
                 <BeatLoader color='blue' />
             </main>}

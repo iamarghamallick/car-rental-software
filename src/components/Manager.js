@@ -67,17 +67,17 @@ const Manager = ({ manager }) => {
     }, [])
 
     return (
-        <div className="min-h-screen bg-gray-100">
-            <nav className="w-full bg-white shadow-lg">
-                <div className="mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between h-16">
+        <div className="min-h-screen">
+            <nav className="w-full bg-white shadow-lg mt-2 rounded-lg">
+                <div className="px-4 sm:px-6 lg:px-8">
+                    <div className="flex flex-col md:flex-row justify-between py-2 md:py-0 md:h-16">
                         <div className="flex">
                             <div className="flex-shrink-0 flex items-center">
                                 <GrUserManager className="h-8 w-8 text-blue-500" />
                                 <span className="ml-2 text-xl font-bold">{userdata ? userdata.name : "Loading Info..."}</span>
                             </div>
                         </div>
-                        <div className="flex items-center">
+                        <div className="hidden md:flex items-center">
                             <div className="flex-shrink-0 flex items-center">
                                 <MdEmail className="h-8 w-8 text-blue-500" />
                                 <span className="ml-2 text-xl font-bold">{userdata ? userdata.email : ""}</span>
@@ -87,8 +87,8 @@ const Manager = ({ manager }) => {
                 </div>
             </nav>
 
-            <div className="mx-auto py-6 sm:px-6 lg:px-8">
-                <div className="flex space-x-4 mb-4">
+            <div className="py-6 sm:px-6 lg:px-8">
+                <div className="flex space-x-4 mb-4 z-20 relative">
                     <button
                         onClick={() => setActiveTab('cars')}
                         className={`px-4 py-2 rounded-md ${activeTab === 'cars' ? 'bg-blue-500 text-white' : 'bg-white text-gray-700'}`}
@@ -113,23 +113,23 @@ const Manager = ({ manager }) => {
                 </div>
 
                 {activeTab === 'cars' && (
-                    <div className="bg-white shadow overflow-hidden sm:rounded-lg p-4">
+                    <div className=" shadow overflow-hidden sm:rounded-lg p-4">
                         <h2 className="text-2xl font-bold mb-4">Manage Cars</h2>
                         <AddCarForm />
-                        <h1 className="text-4xl font-bold text-center mb-8">Available Cars</h1>
+                        <h1 className="text-4xl font-bold text-center mt-4 mb-4 md:mb-8">Available Cars</h1>
                         <CarList />
                     </div>
                 )}
 
                 {activeTab === 'drivers' && (
-                    <div className="bg-white shadow overflow-hidden sm:rounded-lg p-4">
+                    <div className="shadow overflow-hidden sm:rounded-lg p-4">
                         <h2 className="text-2xl font-bold mb-4">Manage Drivers</h2>
                         <DriverList />
                     </div>
                 )}
 
                 {activeTab === 'stats' && (
-                    <div className="bg-white shadow overflow-hidden sm:rounded-lg p-4">
+                    <div className="bg-white shadow overflow-hidden sm:rounded-lg p-4 rounded-lg">
                         <h2 className="text-2xl font-bold mb-4">Dashboard Statistics</h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>

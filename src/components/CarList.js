@@ -69,7 +69,7 @@ const CarList = () => {
     };
 
     return (
-        <div className='container'>
+        <div className='container m-auto'>
             <BeatLoader className={`${loading ? "" : "invisible"} text-center`} color="blue" />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {!carList && repeat.map((_, index) => (

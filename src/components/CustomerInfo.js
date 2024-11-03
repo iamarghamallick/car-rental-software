@@ -18,7 +18,7 @@ const CustomerInfo = ({ customer }) => {
         <div className="mx-auto w-full bg-white rounded-xl shadow-md overflow-hidden">
             <div className="p-8">
                 <h1 className="text-xl font-semibold text-center">Customer Info</h1>
-                <div className="grid grid-cols-1 gap-6 pb-6">
+                <div className="grid grid-cols-1 gap-2 md:gap-6 pb-6">
                     <DetailItem
                         icon={<FaUser size={24} />}
                         label="Name"

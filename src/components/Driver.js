@@ -106,23 +106,26 @@ const Driver = ({ driver_id }) => {
 
     return (
         <>
-            {!userdata && <BeatLoader className='text-center' color='blue' />}
+            {!userdata && <div className='flex flex-col justify-center items-center'>
+                <h1 className='text-xl font-bold m-4'>Please wait a moment</h1>
+                <BeatLoader color='blue' />
+            </div>}
 
-            {userdata && <div className="bg-gray-100 min-h-screen p-8">
+            {userdata && <div className="min-h-screen rounded-lg p-2 md:p-8 my-8">
                 <div className="max-w-7xl mx-auto">
-                    <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
-                        <div className="flex items-center justify-between">
-                            <div className="flex items-center space-x-4">
+                    <div className="bg-white rounded-lg shadow-lg p-2 md:p-6 mb-8">
+                        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                            <div className="w-full flex items-center justify-left">
                                 <img
                                     src="/assets/all-images/avater.png"
                                     alt="Driver"
                                     className="w-16 h-16 rounded-full object-cover"
                                 />
-                                <div>
+                                <div className='ml-4'>
                                     <div className='flex items-center'>
-                                        <h2 className="text-2xl font-bold">{userdata.name}</h2>
+                                        <h2 className="text-xl md:text-2xl font-bold">{userdata.name}</h2>
                                         <TbPointFilled size={30} color={`${userdata.active === "true" ? "lightgreen" : "red"}`} />
-                                        <h2 className="text-green-600">{`${userdata.active === "true" ? "Active Now" : ""}`}</h2>
+                                        <h2 className="text-green-600">{`${userdata.active === "true" ? "Active" : ""}`}</h2>
                                     </div>
                                     <div className="flex items-center mt-1">
                                         <FaStar className="text-yellow-400 mr-1" />
@@ -130,7 +133,7 @@ const Driver = ({ driver_id }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex items-center space-x-4">
+                            <div className="w-full flex justify-around items-start md:items-end flex-col">
                                 <div className="flex items-center">
                                     <IoCall className="text-gray-400 mr-2" />
                                     <span className="text-gray-600">{userdata.phone || "(Not updated)"}</span>
@@ -144,12 +147,12 @@ const Driver = ({ driver_id }) => {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div className="col-span-2">
-                            <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
-                                <div className='flex flex-row items-center justify-between'>
+                        <div className="md:col-span-2">
+                            <div className="rounded-lg shadow-lg px-1 md:px-6 p-2 mb-8 pb-6">
+                                <div className='bg-white p-4 mt-2 rounded-lg flex flex-row items-center justify-between'>
                                     <div className='flex gap-4'>
-                                        <button onClick={switchTab} className={`${activeTab ? 'bg-green-500 text-white' : 'bg-white'} p-2 rounded-lg border border-green-500 text-xl font-semibold`}>Active Bookings</button>
-                                        <button onClick={switchTab} className={`${!activeTab ? 'bg-blue-500 text-white' : 'bg-white'} p-2 rounded-lg border border-blue-500 text-xl font-semibold`}>History</button>
+                                        <button onClick={switchTab} className={`${activeTab ? 'bg-green-500 text-white' : 'bg-white'} p-2 rounded-lg border border-green-500 text-lg md:text-xl font-semibold`}>Bookings</button>
+                                        <button onClick={switchTab} className={`${!activeTab ? 'bg-blue-500 text-white' : 'bg-white'} p-2 rounded-lg border border-blue-500 text-lg md:text-xl font-semibold`}>History</button>
                                     </div>
                                     <BeatLoader className={`${loading ? "" : "invisible"} text-center`} color="blue" />
                                 </div>
@@ -161,7 +164,7 @@ const Driver = ({ driver_id }) => {
                             </div>
                         </div>
 
-                        <div>
+                        <div className=''>
                             <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
                                 <h3 className="text-xl font-semibold mb-4">Notifications</h3>
                                 <ul className="space-y-4">

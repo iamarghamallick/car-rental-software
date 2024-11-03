@@ -36,18 +36,18 @@ const Header = () => {
     }
 
     return (
-        <header className="bg-gray-800 text-white py-4 sticky top-0 z-50">
+        <header className="bg-gradient-to-r from-gray-900 via-indigo-500 to-purple-800 text-white py-4 sticky top-0 z-50">
             <div className="container mx-auto flex justify-between items-center px-4">
                 <div className="text-2xl font-bold">
                     <Link href="/">{CRS_TITLE}</Link>
                 </div>
                 <nav className="hidden md:flex space-x-6">
-                    {!loggedIn && <Link href="/" className="hover:text-gray-400">Home</Link>}
-                    {loggedIn && <Link href={`/${currUserType}-dashboard`} className="hover:text-gray-400">My Dashboard</Link>}
-                    <Link href="/about" className="hover:text-gray-400">About</Link>
-                    <Link href="/about#services" className="hover:text-gray-400">Services</Link>
-                    {!loggedIn && <Link href="/login" className="hover:text-gray-400">Login</Link>}
-                    {!loggedIn && <Link href="/signup" className="hover:text-gray-400">Signup</Link>}
+                    {!loggedIn && <Link href="/" className="hover:text-gray-300 transition-colors">Home</Link>}
+                    {loggedIn && <Link href={`/${currUserType}-dashboard`} className="hover:text-gray-300 transition-colors">My Dashboard</Link>}
+                    <Link href="/about" className="hover:text-gray-300 transition-colors">About</Link>
+                    <Link href="/about#services" className="hover:text-gray-300 transition-colors">Services</Link>
+                    {!loggedIn && <Link href="/login" className="hover:text-gray-300 transition-colors">Login</Link>}
+                    {!loggedIn && <Link href="/signup" className="hover:text-gray-300 transition-colors">Signup</Link>}
                     {loggedIn && <Link href="/profile" className="hover:bg-blue-600 bg-blue-700 px-2 rounded-sm">Profile</Link>}
                     {loggedIn && <button onClick={handleLogout} className="hover:bg-blue-600 bg-blue-700 px-2 rounded-sm">Logout</button>}
                 </nav>
@@ -61,27 +61,30 @@ const Header = () => {
             </div>
             {isOpen && (
                 <nav className="md:hidden">
-                    <ul className="flex flex-col items-center space-y-4 py-4 bg-gray-700 mt-4">
+                    <ul className="flex flex-col items-center space-y-4 py-4 bg-gradient-to-br from-gray-900 via-indigo-700 to-purple-900 mt-4">
                         {loggedIn && <li>
-                            <Link href={`/${currUserType}-dashboard`} className="hover:text-gray-400" onClick={toggleMenu}>My Dashboard</Link>
+                            <Link href={`/${currUserType}-dashboard`} className="hover:text-gray-300 transition-colors" onClick={toggleMenu}>My Dashboard</Link>
                         </li>}
                         {!loggedIn && <li>
-                            <Link href="/" className="hover:text-gray-400" onClick={toggleMenu}>Home</Link>
+                            <Link href="/" className="hover:text-gray-300 transition-colors" onClick={toggleMenu}>Home</Link>
                         </li>}
                         <li>
-                            <Link href="/about" className="hover:text-gray-400" onClick={toggleMenu}>About</Link>
+                            <Link href="/about" className="hover:text-gray-300 transition-colors" onClick={toggleMenu}>About</Link>
                         </li>
                         <li>
-                            <Link href="/about#services" className="hover:text-gray-400" onClick={toggleMenu}>Services</Link>
+                            <Link href="/about#services" className="hover:text-gray-300 transition-colors" onClick={toggleMenu}>Services</Link>
                         </li>
                         {!loggedIn && <li>
-                            <Link href="/login" className="hover:text-gray-400" onClick={toggleMenu}>Login</Link>
+                            <Link href="/login" className="hover:text-gray-300 transition-colors" onClick={toggleMenu}>Login</Link>
                         </li>}
                         {!loggedIn && <li>
-                            <Link href="/signup" className="hover:text-gray-400" onClick={toggleMenu}>Signup</Link>
+                            <Link href="/signup" className="hover:text-gray-300 transition-colors" onClick={toggleMenu}>Signup</Link>
                         </li>}
                         {loggedIn && <li>
-                            <button onClick={handleLogout} className="hover:text-gray-400">Logout</button>
+                            <Link href="/profile" className="hover:text-gray-300 transition-colors" onClick={toggleMenu}>Profile</Link>
+                        </li>}
+                        {loggedIn && <li>
+                            <button onClick={handleLogout} className="hover:text-gray-300 transition-colors">Logout</button>
                         </li>}
                     </ul>
                 </nav>

@@ -6,7 +6,7 @@ import { MdOutlineAddIcCall, MdViewTimeline } from 'react-icons/md'
 const CustomerHeader = () => {
     return (
         <section className='container'>
-            <div className="w-full grid grid-cols-4 gap-4 p-6">
+            <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-4 p-6 px-1">
                 <div className='p-4 flex flex-col items-center justify-center bg-blue-200 rounded-lg font-extrabold text-blue-950 shadow-lg shadow-blue-900/50'>
                     <FaCar size={30} color='#1e3a8a' />
                     <h1>Car Rental</h1>
