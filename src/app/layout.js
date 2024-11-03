@@ -19,6 +19,7 @@ const geistMono = localFont({
 export const metadata = {
   title: "Car Rental Service | WeDrive",
   description: "Car Rental Software Project",
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({ children }) {

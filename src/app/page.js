@@ -5,7 +5,7 @@ export default function Home() {
   const CRS_TITLE = "WeDrive";
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen px-1">
       <main className="flex flex-col gap-4">
         <header className="mt-4 rounded-lg bg-gradient-to-r from-blue-800 via-blue-600 to-blue-500 text-white">
           <div className="container mx-auto text-center py-16 px-4">
