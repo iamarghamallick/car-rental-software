@@ -31,6 +31,7 @@ const AddCarForm = () => {
                 setStatus(data.message);
                 setNewCar({ title: '', imageUrl: '', fuel: '', mileage: '', space: '', year: '', price: '' });
                 console.log(data);
+                window.location.reload();
             } else {
                 console.log("Some Error Occured!");
                 setStatus("Something went wrong!");
@@ -76,6 +77,7 @@ const AddCarForm = () => {
                     value={newCar.mileage}
                     onChange={(e) => setNewCar({ ...newCar, mileage: e.target.value })}
                     className="border rounded-md px-3 py-2 z-20"
+                    min="0"
                     required
                 />
                 <input
@@ -84,6 +86,8 @@ const AddCarForm = () => {
                     value={newCar.space}
                     onChange={(e) => setNewCar({ ...newCar, space: e.target.value })}
                     className="border rounded-md px-3 py-2 z-20"
+                    min="0"
+                    max="8"
                     required
                 />
                 <input
@@ -92,6 +96,8 @@ const AddCarForm = () => {
                     value={newCar.year}
                     onChange={(e) => setNewCar({ ...newCar, year: e.target.value })}
                     className="border rounded-md px-3 py-2 z-20"
+                    min="2014"
+                    max="2024"
                     required
                 />
                 <input
@@ -100,6 +106,8 @@ const AddCarForm = () => {
                     value={newCar.price}
                     onChange={(e) => setNewCar({ ...newCar, price: e.target.value })}
                     className="border rounded-md px-3 py-2 z-20"
+                    min="0"
+                    max="100"
                     required
                 />
             </div>
