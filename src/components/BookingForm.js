@@ -113,6 +113,9 @@ const BookingForm = ({ user_id, car_id, title, imageUrl, fuel, mileage, space, y
         console.log(newBooking);
         setLoading(true);
 
+        if (!origin.lating || !dest.lating)
+            setStatus("Source & Destination Not Found");
+        
         try {
             const carDetails = await getCarDetails(newBooking.car_id);
             const customerDetails = await getCustomerDetails(newBooking.user_id);
