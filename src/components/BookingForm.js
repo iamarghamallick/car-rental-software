@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 
 const BookingForm = ({ user_id, car_id, title, imageUrl, fuel, mileage, space, year, price }) => {
     const GRAPHHOPPER_API_KEY = process.env.NEXT_PUBLIC_GRAPHHOPPER_API_KEY;
-
+    const today = new Date().toISOString().split("T")[0];
     const [newBooking, setNewBooking] = useState({
         user_id: user_id,
         car_id: car_id,
@@ -108,9 +108,37 @@ const BookingForm = ({ user_id, car_id, title, imageUrl, fuel, mileage, space, y
         return data.car;
     }
 
+    const [error, setError] = useState("");
+
+    const handleTimeChange = (e) => {
+        const selectedTime = e.target.value;
+        const now = new Date();
+
+        // Get current time in HH:MM
+        const currentHours = now.getHours().toString().padStart(2, "0");
+        const currentMinutes = now.getMinutes().toString().padStart(2, "0");
+        const currentTime = `${currentHours}:${currentMinutes}`;
+
+        if (selectedTime < currentTime) {
+            setError("You cannot select a past time.");
+        } else {
+            setError("");
+            setNewBooking({ ...newBooking, time: selectedTime });
+        }
+    };
+
+    const [locationError, setLocationError] = useState("");
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(newBooking);
+
+        setLocationError("");
+        if (!newBooking.origin.latlng || !newBooking.dest.latlng) {
+            setLocationError("Please select both origin and destination locations.");
+            return;
+        }
+
         setLoading(true);
 
         try {
@@ -212,6 +240,7 @@ const BookingForm = ({ user_id, car_id, title, imageUrl, fuel, mileage, space, y
                         value={newBooking.date}
                         onChange={(e) => setNewBooking({ ...newBooking, date: e.target.value })}
                         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                        min={today}
                         required
                     />
                 </div>
@@ -221,10 +250,11 @@ const BookingForm = ({ user_id, car_id, title, imageUrl, fuel, mileage, space, y
                         type="time"
                         id="time"
                         value={newBooking.time}
-                        onChange={(e) => setNewBooking({ ...newBooking, time: e.target.value })}
+                        onChange={handleTimeChange}
                         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
                         required
                     />
+                    {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
                 </div>
                 <div>
                     <label htmlFor="distance" className="block text-sm font-medium text-gray-700">Distance (in km)</label>
@@ -254,6 +284,7 @@ const BookingForm = ({ user_id, car_id, title, imageUrl, fuel, mileage, space, y
                     >
                         {loading ? "In Progress..." : "Confirm Booking"}
                     </button>
+                    {locationError && <p className="text-red-500 text-sm mt-1">{locationError}</p>}
                 </div>
             </form>
         </div>
