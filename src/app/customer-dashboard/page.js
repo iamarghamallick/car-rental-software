@@ -72,7 +72,7 @@ const Page = () => {
                         {userdata && <h1 className="text-white text-xl font-bold">Welcome {userdata.name}</h1>}
                         <h1 className="text-white text-4xl font-bold">Reserve Now and get instance 20% off</h1>
                         <div className='flex gap-6'>
-                            <Link href='/customer-dashboard#reserve' className='p-2 px-4 bg-white rounded-lg text-blue-950 font-bold text-xl'>Reverse a car</Link>
+                            <Link href='/customer-dashboard#reserve' className='p-2 px-4 bg-white rounded-lg text-blue-950 font-bold text-xl'>Reserve a car</Link>
                             <Link href='/my-bookings' className='p-2 px-4 bg-gray-700 rounded-lg text-white font-bold text-xl border border-white'>My Bookings</Link>
                         </div>
                     </div>
